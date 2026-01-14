@@ -6,7 +6,7 @@
       <div class="mono text-[11px] uppercase tracking-widest text-gray-500">
         ToolKuai © 2026 / Built for Privacy
       </div>
-      <div class="flex space-x-8 mt-6 md:mt-0 mono text-[11px] uppercase tracking-widest font-medium">
+      <div class="flex space-x-8 mt-6 md:mt-0 mono text-[11px] uppercase tracking-widest font-medium text-gray-500">
         <a href="#" class="hover:underline hover:decoration-yellow-400 hover:underline-offset-4 px-1">Privacy Policy</a>
         <a href="#" class="hover:underline hover:decoration-yellow-400 hover:underline-offset-4 px-1">Github</a>
         <a href="#" class="hover:underline hover:decoration-yellow-400 hover:underline-offset-4 px-1">Contact</a>
