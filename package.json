@@ -25,6 +25,8 @@
 		"vite": "^7.2.6"
 	},
 	"dependencies": {
-		"lucide-svelte": "^0.344.0"
+		"jszip": "^3.10.1",
+		"lucide-svelte": "^0.344.0",
+		"mediabunny": "^1.27.6"
 	}
 }
