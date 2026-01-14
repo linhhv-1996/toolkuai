@@ -13,7 +13,9 @@ export const toolUi = {
       addMore: "Add more files",
       file: "File",
       size: "Size",
-      status: "Status"
+      status: "Status",
+      reset: "Reset",
+      addFiles: "Add Files"
     },
     videoCompress: {
       title: "Video Compressor",
@@ -42,7 +44,9 @@ export const toolUi = {
       addMore: "新增檔案",
       file: "檔案",
       size: "大小",
-      status: "狀態"
+      status: "狀態",
+      reset: "重置",
+      addFiles: "新增檔案"
     },
     videoCompress: {
       title: "影片壓縮",
