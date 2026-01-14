@@ -3,10 +3,6 @@
 @tailwind utilities;
 
 /* Custom styles từ HTML gốc */
-:root {
-  --yellow: #FFDE00;
-}
-
 body {
   font-family: 'Space Grotesk', sans-serif;
   background-color: #fff;
@@ -18,17 +14,31 @@ body {
 
 .tool-item,
 .blog-item {
-  transition: all 0.15s ease;
+  transition: background-color 0.15s ease;
 }
 
 .tool-item:hover,
 .blog-item:hover {
-  background-color: #fafafa;
+  background-color: #f9f9f9;
 }
 
-.tool-item:hover .tool-name,
 .blog-item:hover .blog-name {
   text-decoration: underline;
-  text-decoration-color: var(--yellow);
-  text-underline-offset: 4px;
+  color: #10b981;
+  /* Tailwind green-600 */
+}
+
+.tool-item:hover .tool-name {
+  text-decoration: underline;
+  color: #10b981;
+  /* Tailwind green-600 */
+}
+
+.tool-item:hover .tool-arrow,
+.blog-item:hover .blog-arrow {
+  transform: translateX(4px);
+}
+
+a {
+  transition: color 0.15s ease;
 }
