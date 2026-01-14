@@ -3,11 +3,11 @@
 </script>
 
 <!-- NAV -->
-<nav class="max-w-[960px] mx-auto py-3 px-6 flex justify-between items-baseline">
+<nav class="max-w-[960px] mx-auto py-2 px-6 flex justify-between items-center">
   <div>
     <div class="text-2xl font-bold tracking-tighter uppercase">ToolKuai</div>
     <div class="mono text-[10px] uppercase tracking-[0.2em] text-gray-400 mt-1">
-      Ver 2.0.26 / Local Engine
+      // Built for Privacy
     </div>
   </div>
   <div class="mono text-[11px] uppercase tracking-wider space-x-4 flex items-center">
