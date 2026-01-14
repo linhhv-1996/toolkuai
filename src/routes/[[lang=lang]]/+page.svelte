@@ -104,11 +104,11 @@
                   />
                   <div>
                     <div
-                      class="tool-name font-medium text-sm group-hover:text-[#10b981] transition-colors"
+                      class="text-base font-semibold text-slate-900 group-hover:text-[#10b981] transition-colors"
                     >
                       {tool.i18n[lang].title}
                     </div>
-                    <div class="mono text-xs text-gray-500 mt-1">
+                    <div class="mt-1 text-sm text-slate-500 leading-normal">
                       {tool.i18n[lang].description}
                     </div>
                   </div>

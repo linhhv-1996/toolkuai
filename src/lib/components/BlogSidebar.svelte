@@ -16,7 +16,7 @@
 </script>
 
 <div class="w-full md:w-[310px] sticky top-4 self-start">
-    <div class="mono text-xs text-gray-500 mb-2 tracking-wider">
+    <div class="text-xs font-bold uppercase tracking-widest text-slate-400 mb-2">
         {t.recent}
     </div>
 
