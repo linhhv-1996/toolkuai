@@ -1,8 +1,8 @@
 export const toolUi = {
   en: {
     common: {
-      dropTitle: "Drop your files here",
-      dropDesc: "or click to browse",
+      dropTitle: "Drop & drop files here",
+      dropDesc: "or click to select multiple files (MP4, AVI, etc.) ",
       processing: "Processing...",
       download: "Download",
       downloadAll: "Download All (ZIP)",
@@ -15,20 +15,34 @@ export const toolUi = {
       size: "Size",
       status: "Status",
       reset: "Reset",
-      addFiles: "Add Files"
+      addFiles: "Add Files",
+      selectedFiles: "Selected Videos",
+      options: "Compression Options",
+      outputFormat: "Output Format",
+      progress: "Compression Progress",
+      results: "Compressed Videos",
+      compressMore: "Compress More Videos",
+      savedMessage: "You saved {size}!",
+      shareResults: "Share your results",
+      tweetIt: "Tweet it",
+      tips: "Tip: While waiting, check out our blog for more optimization tips!",
+      readNow: "Read now",
+      backToTools: "Back to Tools",
     },
     videoCompress: {
       title: "Video Compressor",
+      subTitle: "Compress multiple videos locally without quality loss. Your files stay on your device.",
       settings: "Compression Settings",
       quality: "Quality Level",
-      qualityLow: "Small Size",
-      qualityHigh: "High Quality",
+      qualityLevels: {
+        high: "High (Smaller file, slight quality loss)",
+        medium: "Medium (Balanced)",
+        low: "Low (Minimal compression)"
+      },
       start: "Compress Videos",
       saving: "Total Saved",
-      optimized: "Optimized",
-      original: "Original kept",
-      calculating: "Calculating..."
-    }
+      errorMsg: "An error occurred. Please try again."
+    },
   },
   'zh-TW': {
     common: {
@@ -46,19 +60,33 @@ export const toolUi = {
       size: "大小",
       status: "狀態",
       reset: "重置",
-      addFiles: "新增檔案"
+      addFiles: "新增檔案",
+      selectedFiles: "已選影片",
+      options: "壓縮選項",
+      outputFormat: "輸出格式",
+      progress: "壓縮進度",
+      results: "壓縮結果",
+      compressMore: "繼續壓縮",
+      savedMessage: "您節省了 {size}!",
+      shareResults: "分享結果",
+      tweetIt: "推特分享",
+      tips: "提示：等待期間，可以查看我們的部落格獲取更多優化技巧！",
+      readNow: "立即閱讀",
+      backToTools: "Back to Tools",
     },
     videoCompress: {
       title: "影片壓縮",
+      subTitle: "",
       settings: "壓縮設定",
       quality: "品質等級",
-      qualityLow: "檔案較小",
-      qualityHigh: "畫質較佳",
+      qualityLevels: {
+        high: "高壓縮 (檔案最小，畫質微損)",
+        medium: "中等 (平衡)",
+        low: "低壓縮 (保留畫質)"
+      },
       start: "開始壓縮",
-      saving: "已節省空間",
-      optimized: "已最佳化",
-      original: "保留原始檔",
-      calculating: "計算中..."
+      saving: "總計節省",
+      errorMsg: "發生錯誤，請稍後再試。"
     }
   }
 };

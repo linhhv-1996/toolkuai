@@ -1,15 +1,17 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 /* Custom styles từ HTML gốc */
 body {
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: 'Inter', sans-serif;
   background-color: #fff;
 }
 
 .mono {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: 'Inter', sans-serif;
 }
 
 .tool-item,
@@ -41,4 +43,53 @@ body {
 
 a {
   transition: color 0.15s ease;
+}
+
+
+/* Ép nội dung Markdown dày đặc hơn, bớt khoảng trắng thừa */
+.prose {
+  /* Giảm khoảng cách giữa các khối lớn */
+  --tw-prose-body: theme('colors.gray.600');
+}
+
+/* Target trực tiếp các thẻ bên trong prose */
+.prose h2 {
+  margin-top: 1.5rem !important;
+  /* Mặc định thường là 2rem+ */
+  margin-bottom: 0.5rem !important;
+  font-size: 1.25rem !important;
+}
+
+.prose h3 {
+  margin-top: 1.25rem !important;
+  margin-bottom: 0.4rem !important;
+  font-size: 1.1rem !important;
+}
+
+.prose {
+  font-size: 0.9375rem; /* ~15px, giữa sm và base */
+}
+
+.prose p {
+  margin-top: 0.5rem !important;
+  margin-bottom: 0.75rem !important;
+  /* Giảm margin bottom của đoạn văn */
+  line-height: 1.5 !important;
+  /* Độ giãn dòng vừa phải */
+}
+
+.prose ul,
+.prose ol {
+  margin-top: 0.5rem !important;
+  margin-bottom: 0.75rem !important;
+}
+
+.prose li {
+  margin-top: 0.2rem !important;
+  margin-bottom: 0.2rem !important;
+}
+
+.prose hr {
+  margin-top: 2rem !important;
+  margin-bottom: 2rem !important;
 }

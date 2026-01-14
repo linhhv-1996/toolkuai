@@ -56,11 +56,11 @@
 </script>
 
 <header class="max-w-[960px] mx-auto px-6 mb-8 text-center md:text-left">
-  <h1 class="text-4xl md:text-5xl font-medium leading-tight mb-4">
+  <h1 class="text-3xl md:text-4xl font-bold leading-tight mb-4">
     {t.hero.h1}
   </h1>
 
-  <p class="mono text-sm text-gray-600 max-w-md mb-6 mx-auto md:mx-0">
+  <p class="mono text-base text-gray-600 max-w-md mb-6 mx-auto md:mx-0">
     {t.hero.h2}
     <a
       href="{langPath}/how-it-works"
@@ -77,10 +77,10 @@
   />
 </header>
 
-<main class="max-w-[960px] mx-auto px-6 mb-12 flex flex-col md:flex-row gap-8">
-  <div class="w-full md:w-7/12 space-y-6">
+<main class="max-w-[960px] mx-auto px-6 mb-12 flex flex-col md:flex-row gap-6">
+  <div class="w-full md:w-[630px] space-y-6">
     {#if categories.length === 0}
-      <div class="mono text-sm text-gray-500 py-10 text-center">
+      <div class="mono text-xs text-gray-500 py-10 text-center">
         {t.search.notFound} "{searchQuery}"
       </div>
     {:else}
