@@ -28,6 +28,7 @@ export const toolUi = {
       tips: "Tip: While waiting, check out our blog for more optimization tips!",
       readNow: "Read now",
       backToTools: "Back to Tools",
+      addMoreFiles: "Add More Files",
     },
     videoCompress: {
       title: "Video Compressor",
@@ -73,6 +74,7 @@ export const toolUi = {
       tips: "提示：等待期間，可以查看我們的部落格獲取更多優化技巧！",
       readNow: "立即閱讀",
       backToTools: "Back to Tools",
+      addMoreFiles: "Add More Files",
     },
     videoCompress: {
       title: "影片壓縮",
