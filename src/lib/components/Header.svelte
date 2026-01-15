@@ -15,20 +15,26 @@
   }
 </script>
 
-<nav class="max-w-[960px] mx-auto py-3 px-6 flex justify-between items-center">
-  <div>
-    <a href={lang === siteConfig.defaultLang ? '/' : `/${lang.toLowerCase()}`} class="text-xl font-medium tracking-tight">
+<nav class="max-w-[960px] mx-auto py-4 px-6 flex justify-between items-center">
+  <div class="flex flex-col">
+    <a href={lang === siteConfig.defaultLang ? '/' : `/${lang.toLowerCase()}`} 
+       class="text-lg font-bold tracking-tight text-slate-900 hover:text-[#10b981] transition-colors">
       ToolKuai
     </a>
-    <div class="mono text-xs text-gray-500 mt-1">Version 2.0.26 / Local Engine</div>
+    <div class="mono text-[10px] text-gray-400 leading-none mt-1 uppercase tracking-tighter">
+      V 2.0.26 / Local Engine
+    </div>
   </div>
-  <div class="mono text-xs space-x-4 flex items-center">
-    <select value={lang} onchange={handleLangChange} class="bg-transparent border-none focus:outline-none cursor-pointer hover:text-[#10b981] transition">
+  <div class="flex items-center space-x-5 text-sm font-medium">
+    <select value={lang} onchange={handleLangChange} 
+            class="bg-transparent border-none focus:outline-none cursor-pointer text-gray-600 hover:text-[#10b981] transition-colors">
       {#each siteConfig.languages as l}
         <option value={l.id}>{l.label}</option>
       {/each}
     </select>
-    <a href="/blog" class="hover:text-[#10b981] transition">{t.nav.blog}</a>
+    <a href="/blog" class="text-gray-600 hover:text-[#10b981] transition-colors uppercase text-[11px] tracking-widest font-bold">
+      {t.nav.blog}
+    </a>
   </div>
 </nav>
-<hr class="w-full mb-6 border-gray-200" />
+<hr class="w-full border-gray-100" />
