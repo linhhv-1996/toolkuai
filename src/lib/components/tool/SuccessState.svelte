@@ -3,12 +3,12 @@
     import { CheckCircle2, FileDown, Clock, Percent } from "lucide-svelte";
 
     let { 
-        processingTime, // e.g., "2 minutes 30 seconds"
-        customInfo, // e.g., "Saved 45% (150 MB)" - HTML allowed for formatting
+        processingTime,
+        customInfo,
         zipUrl, 
         onReset, 
         t, 
-        onViewFiles // callback to show FileListPanel
+        onViewFiles
     }: { 
         processingTime: string, 
         customInfo: string, 

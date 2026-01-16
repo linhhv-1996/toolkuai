@@ -49,7 +49,7 @@
   );
 </script>
 
-<header class="max-w-[960px] mx-auto px-6 mb-10 mt-6 text-center md:text-left">
+<header class="max-w-[972px] mx-auto px-6 mb-10 mt-6 text-center md:text-left">
   <h1
     class="text-2xl md:text-3xl font-extrabold tracking-tight text-slate-900 mb-3"
   >

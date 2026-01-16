@@ -180,7 +180,7 @@
                     </div>
                     <div class="flex flex-col space-y-2">
                         <!-- svelte-ignore a11y_label_has_associated_control -->
-                        <label class="mono text-[11px] text-gray-500 uppercase font-bold">Format</label>
+                        <label class="mono text-[11px] text-gray-500 uppercase font-bold">{t.common.format}</label>
                         <select bind:value={outputFormat} class="mono text-[13px] px-4 py-2 border border-gray-300 focus:outline-none focus:border-gray-500 rounded-sm bg-white" id="outputFormat">
                             <option class="mono text-[13px]" value="png">PNG</option>
                             <option class="mono text-[13px]" value="jpg">JPG</option>
@@ -188,7 +188,7 @@
                     </div>
                     <div class="flex flex-col space-y-2">
                         <!-- svelte-ignore a11y_label_has_associated_control -->
-                        <label class="mono text-[11px] text-gray-500 uppercase font-bold">Quality</label>
+                        <label class="mono text-[11px] text-gray-500 uppercase font-bold">{t.common.quality}</label>
                         <input type="range" bind:value={quality} min="10" max="100" step="10" class="w-full accent-red-600" />
                         <span class="text-sm text-gray-600">{quality}%</span>
                     </div>
@@ -203,15 +203,15 @@
                         </div>
                         <div class="flex space-x-2">
                             <button onclick={addMoreFiles} class="flex items-center border border-[#10b981] text-[#10b981] mono text-[11px] px-3 py-1 rounded-sm hover:bg-green-50 transition font-bold uppercase tracking-wider">
-                                <Plus class="w-4 h-4 mr-1" /> Add more
+                                <Plus class="w-4 h-4 mr-1" />{t.common.addMore}
                             </button>
                             <button onclick={clearFiles} class="flex items-center border border-gray-300 text-gray-600 mono text-[11px] px-3 py-1 rounded-sm hover:bg-gray-50 transition font-bold uppercase tracking-wider">
-                                <Trash2 class="w-4 h-4 mr-1" /> Clear
+                                <Trash2 class="w-4 h-4 mr-1" />{t.common.clear}
                             </button>
                         </div>
                     </div>
                     <p class="text-sm text-gray-800">
-                        You have selected <b>{heicQueue.length} {heicQueue.length === 1 ? t.common.fileSelected : t.common.filesSelected}</b> totaling <b>{totalSelectedSize} MB</b>. 
+                        {t.common.youHaveSelected} <b>{heicQueue.length} {heicQueue.length === 1 ? t.common.fileSelected : t.common.filesSelected}</b> {t.common.totaling} <b>{totalSelectedSize} MB</b>. 
                         <!-- svelte-ignore a11y_invalid_attribute -->
                         <a href="#" onclick={(e) => { e.preventDefault(); showFilePanel = true; }} class="text-[#10b981] hover:underline font-medium">{t.common.viewDetail}</a>
                     </p>
@@ -222,7 +222,7 @@
                     </div>
                     <div class="flex flex-col space-y-2">
                         <!-- svelte-ignore a11y_label_has_associated_control -->
-                        <label class="mono text-[11px] text-gray-500 uppercase font-bold">Format</label>
+                        <label class="mono text-[11px] text-gray-500 uppercase font-bold">{t.common.format}</label>
                         <select bind:value={outputFormat} class="mono text-[13px] px-4 py-2 border border-gray-300 focus:outline-none focus:border-gray-500 rounded-sm bg-white" id="outputFormat">
                             <option class="mono text-[13px]" value="png">PNG</option>
                             <option class="mono text-[13px]" value="jpg">JPG</option>
@@ -230,7 +230,7 @@
                     </div>
                     <div class="flex flex-col space-y-2">
                         <!-- svelte-ignore a11y_label_has_associated_control -->
-                        <label class="mono text-[11px] text-gray-500 uppercase font-bold">Quality</label>
+                        <label class="mono text-[11px] text-gray-500 uppercase font-bold">{t.common.quality}</label>
                         <input type="range" bind:value={quality} min="10" max="100" step="10" class="w-full accent-red-600" />
                         <span class="text-sm text-gray-600">{quality}%</span>
                     </div>
@@ -244,7 +244,7 @@
                     onchange={(e) => handleFiles(Array.from(e.currentTarget.files || []))} 
                 />
                 <button onclick={startConversion} disabled={heicQueue.length === 0} class="w-full bg-[#10b981] text-white mono text-[13px] py-3 rounded-sm hover:bg-green-700 transition disabled:opacity-50 font-bold uppercase tracking-wider">
-                    Start
+                    {t.heic2jpg.startConvert}
                 </button>
             </div>
         {:else if status === "processing"}
@@ -261,9 +261,7 @@
                 />
 
                 <p class="mono text-center text-[12px] text-slate-400 tracking-widest font-medium" style="margin-top: 25px !important">
-                    <b>We respect your privacy:</b> <br>
-                    HEIC to JPEG/PNG conversions are processed locally in your browser. <br>
-                    Your files never leave your device, ensuring complete data security.
+                    {@html t.heic2jpg.tips}
                 </p>
             </div>
         {:else if status === "success"}
@@ -276,15 +274,13 @@
                 onViewFiles={viewFiles} 
             />
             <p class="mono text-center text-[12px] text-slate-400 tracking-widest font-medium" style="margin-top: 5px !important">
-                    <b>We respect your privacy:</b> <br>
-                    HEIC to JPEG/PNG conversions are processed locally in your browser. <br>
-                    Your files never leave your device, ensuring complete data security.
-                </p>
+                {@html t.heic2jpg.tips}
+            </p>
         {/if}
 
         {#if showFilePanel}
             <FileListPanel 
-                videoQueue={heicQueue} 
+                fileQueue={heicQueue} 
                 {status} 
                 {t} 
                 onClose={() => showFilePanel = false} 

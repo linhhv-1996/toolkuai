@@ -212,11 +212,11 @@
                     </div>
                     <div class="flex flex-col space-y-2">
                         <!-- svelte-ignore a11y_label_has_associated_control -->
-                        <label class="mono text-[11px] text-gray-500 uppercase font-bold">Quality</label>
+                        <label class="mono text-[11px] text-gray-500 uppercase font-bold">{t.common.quality}</label>
                         <select bind:value={quality} class="mono text-[13px] px-4 py-2 border border-gray-300 focus:outline-none focus:border-gray-500 rounded-sm bg-white" id="qualityLevel">
-                            <option class="mono text-[13px]" value="high">High (Lossless)</option>
-                            <option class="mono text-[13px]" value="medium">Balanced</option>
-                            <option class="mono text-[13px]" value="low">Low (Max)</option>
+                            <option class="mono text-[13px]" value="high">{t.pdfCompressor.highQuality}</option>
+                            <option class="mono text-[13px]" value="medium">{t.pdfCompressor.balanced}</option>
+                            <option class="mono text-[13px]" value="low">{t.pdfCompressor.low}</option>
                         </select>
                     </div>
                 </section>
@@ -230,15 +230,15 @@
                         </div>
                         <div class="flex space-x-2">
                             <button onclick={addMoreFiles} class="flex items-center border border-[#10b981] text-[#10b981] mono text-[11px] px-3 py-1 rounded-sm hover:bg-green-50 transition font-bold uppercase tracking-wider">
-                                <Plus class="w-4 h-4 mr-1" /> Add more
+                                <Plus class="w-4 h-4 mr-1" />{t.common.addMore}
                             </button>
                             <button onclick={clearFiles} class="flex items-center border border-gray-300 text-gray-600 mono text-[11px] px-3 py-1 rounded-sm hover:bg-gray-50 transition font-bold uppercase tracking-wider">
-                                <Trash2 class="w-4 h-4 mr-1" /> Clear
+                                <Trash2 class="w-4 h-4 mr-1" />{t.common.clear}
                             </button>
                         </div>
                     </div>
                     <p class="text-sm text-gray-800">
-                        You have selected <b>{pdfQueue.length} {pdfQueue.length === 1 ? t.common.fileSelected : t.common.filesSelected}</b> totaling <b>{totalSelectedSize} MB</b>. 
+                        {t.common.youHaveSelected} <b>{pdfQueue.length} {pdfQueue.length === 1 ? t.common.fileSelected : t.common.filesSelected}</b> {t.common.totaling} <b>{totalSelectedSize} MB</b>. 
                         <!-- svelte-ignore a11y_invalid_attribute -->
                         <a href="#" onclick={(e) => { e.preventDefault(); showFilePanel = true; }} class="text-[#10b981] hover:underline font-medium">{t.common.viewDetail}</a>
                     </p>
@@ -249,11 +249,11 @@
                     </div>
                     <div class="flex flex-col space-y-2">
                         <!-- svelte-ignore a11y_label_has_associated_control -->
-                        <label class="mono text-[11px] text-gray-500 uppercase font-bold">Quality</label>
+                        <label class="mono text-[11px] text-gray-500 uppercase font-bold">{t.common.quality}</label>
                         <select bind:value={quality} class="mono text-[13px] px-4 py-2 border border-gray-300 focus:outline-none focus:border-gray-500 rounded-sm bg-white" id="qualityLevel">
-                            <option class="mono text-[13px]" value="high">High (Lossless)</option>
-                            <option class="mono text-[13px]" value="medium">Balanced</option>
-                            <option class="mono text-[13px]" value="low">Low (Max)</option>
+                            <option class="mono text-[13px]" value="high">{t.pdfCompressor.highQuality}</option>
+                            <option class="mono text-[13px]" value="medium">{t.pdfCompressor.balanced}</option>
+                            <option class="mono text-[13px]" value="low">{t.pdfCompressor.low}</option>
                         </select>
                     </div>
                 </section>
@@ -266,7 +266,7 @@
                     onchange={(e) => handleFiles(Array.from(e.currentTarget.files || []))} 
                 />
                 <button onclick={startCompression} disabled={pdfQueue.length === 0} class="w-full bg-[#10b981] text-white mono text-[13px] py-3 rounded-sm hover:bg-green-700 transition disabled:opacity-50 font-bold uppercase tracking-wider">
-                    Start
+                    {t.imageCompressor.compressNow}
                 </button>
             </div>
         {:else if status === "processing"}
@@ -295,7 +295,7 @@
 
         {#if showFilePanel}
             <FileListPanel 
-                videoQueue={pdfQueue} 
+                fileQueue={pdfQueue} 
                 {status} 
                 {t} 
                 onClose={() => showFilePanel = false} 

@@ -2,21 +2,21 @@ export const toolUi = {
   en: {
     common: {
       dropTitle: "Drop & drop files here",
-      dropDesc: "or click to select multiple files (MP4, AVI, etc.) ",
-      processing: "Processing...",
+      dropDesc: "or click to select multiple files",
+      processing: "Processing",
       download: "Download",
       downloadAll: "Download All (ZIP)",
       remove: "Remove",
       error: "Error",
       success: "Done",
       tryAgain: "Try Again",
-      addMore: "Add more files",
+      addMore: "Add more",
       file: "File",
       size: "Size",
       status: "Status",
       reset: "Reset",
       addFiles: "Add Files",
-      selectedFiles: "Selected Videos",
+      selectedFiles: "Selected Files",
       options: "Compression Options",
       outputFormat: "Output Format",
       progress: "Compression Progress",
@@ -36,9 +36,15 @@ export const toolUi = {
       compressedFiles: "Compressed Files",
       saved: "Saved",
       viewDetail: "View details →",
-      viewFiles: "view files →",
+      viewFiles: "view processed files →",
       processingTime: "Processing time",
       newTask: "New task",
+      clear: "Clear",
+      youHaveSelected: "You have selected",
+      totaling: "totaling",
+      format: "Format",
+      quality: "Quality",
+      processedFiles: "Processed Files",
     },
     videoCompress: {
       title: "Video Compressor",
@@ -53,6 +59,21 @@ export const toolUi = {
       start: "Compress Videos",
       saving: "Total Saved",
       errorMsg: "An error occurred. Please try again."
+    },
+    heic2jpg: {
+      tips: "<b>We respect your privacy:</b> <br> HEIC to JPEG/PNG conversions are processed locally in your browser. <br> Your files never leave your device, ensuring complete data security. ",
+      startConvert: "Convert Now",
+    },
+    imageCompressor: {
+      keepOriginal: "Keep Original",
+      maxWidthOrHeight: "Max Width/Height (0 for no resize)",
+      tips: "<b>We respect your privacy:</b> <br> Image compressions are processed locally in your browser. <br> Your files never leave your device, ensuring complete data security.",
+      compressNow: "COMPRESS NOW",
+    },
+    pdfCompressor: {
+      highQuality: "High (Lossless)",
+      balanced: "Balanced",
+      low: "Low (Max)",
     },
   },
   'zh-TW': {
@@ -95,6 +116,12 @@ export const toolUi = {
       viewFiles: "view files →",
       processingTime: "Processing time",
       newTask: "New task",
+      clear: "Clear",
+      youHaveSelected: "You have selected",
+      totaling: "totaling",
+      format: "Format",
+      quality: "Quality",
+      processedFiles: "Processed Files",
     },
     videoCompress: {
       title: "影片壓縮",
@@ -109,6 +136,21 @@ export const toolUi = {
       start: "開始壓縮",
       saving: "總計節省",
       errorMsg: "發生錯誤，請稍後再試。"
-    }
+    },
+    heic2jpg: {
+      tips: "<b>We respect your privacy:</b> <br> HEIC to JPEG/PNG conversions are processed locally in your browser. <br> Your files never leave your device, ensuring complete data security. ",
+      startConvert: "Convert Now",
+    },
+    imageCompressor: {
+      keepOriginal: "Keep Original",
+      maxWidthOrHeight: "Max Width/Height (0 for no resize)",
+      tips: "<b>We respect your privacy:</b> <br> Image compressions are processed locally in your browser. <br> Your files never leave your device, ensuring complete data security.",
+      compressNow: "COMPRESS NOW",
+    },
+    pdfCompressor: {
+      highQuality: "High (Lossless)",
+      balanced: "Balanced",
+      low: "Low (Max)",
+    },
   }
 };

@@ -2,7 +2,7 @@
 <script lang="ts">
     import { X, Trash2 } from "lucide-svelte";
 
-    export let videoQueue: any[];
+    export let fileQueue: any[];
     export let status: "idle" | "selected" | "processing" | "success";
     export let t: any;
     export let onClose: () => void;
@@ -15,7 +15,7 @@
     <div class="flex justify-between items-center mb-4 px-6 pt-6"> <!-- Header không scroll -->
         <h3 class="mono text-[11px] text-gray-500 mb-2 uppercase tracking-widest font-bold">
             {#if status === "success"}
-                {t.common.compressedFiles}
+                {t.common.processedFiles}
             {:else}
                 {t.common.selectedFiles}
             {/if}
@@ -27,7 +27,7 @@
     <div class="flex-grow overflow-auto px-6 pb-6" style="box-sizing: border-box;"> <!-- Chỉ list scroll, thêm box-sizing nếu cần -->
         <!-- FileList nếu có, hoặc list custom -->
         <ul class="space-y-3">
-            {#each videoQueue as item, i}
+            {#each fileQueue as item, i}
                 <li class="flex items-center justify-between py-2 px-3 bg-gray-50 rounded-sm hover:bg-gray-100 transition-colors">
                     <div class="flex flex-col">
                         <span class="text-sm font-medium text-gray-800">{item.file.name}</span>

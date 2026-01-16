@@ -72,6 +72,15 @@
         </a>
     </nav>
 
+    <div class="mb-6">
+        <h1 class="text-2xl md:text-3xl font-bold text-gray-900 mb-2 tracking-tight">
+            {metadata.title}
+        </h1>
+        <p class="text-sm md:text-base text-gray-500 max-w-2xl leading-relaxed">
+            {metadata.description}
+        </p>
+    </div>
+
     <div class="flex flex-col md:flex-row gap-6">
         <div class="w-full md:w-[600px] flex-shrink-0">
             <div class="mb-12">

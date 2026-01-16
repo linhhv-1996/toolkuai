@@ -129,7 +129,7 @@
             const durationMs = endTime - startTime;
             const minutes = Math.floor(durationMs / 60000);
             const seconds = Math.floor((durationMs % 60000) / 1000);
-            processingTime = `${minutes} minute${minutes !== 1 ? 's' : ''} ${seconds} second${seconds !== 1 ? 's' : ''}`;
+            processingTime = `${minutes} minute${minutes !== 1 ? "s" : ""} ${seconds} second${seconds !== 1 ? "s" : ""}`;
 
             status = "success";
         } catch (e) {
@@ -148,31 +148,37 @@
 
     // Derived totals
     const totalOriginalBytes = $derived(
-        videoQueue.reduce((sum, item) => sum + (item.file?.size || 0), 0)
+        videoQueue.reduce((sum, item) => sum + (item.file?.size || 0), 0),
     );
     const totalSelectedSize = $derived(
-        (totalOriginalBytes / 1024 / 1024).toFixed(1)
+        (totalOriginalBytes / 1024 / 1024).toFixed(1),
     );
     const totalSavedMB = $derived((totalSavedBytes / 1024 / 1024).toFixed(1));
     const savedPercentage = $derived(
-        totalOriginalBytes > 0 ? ((totalSavedBytes / totalOriginalBytes) * 100).toFixed(1) : "0"
+        totalOriginalBytes > 0
+            ? ((totalSavedBytes / totalOriginalBytes) * 100).toFixed(1)
+            : "0",
     );
 
     // New: customInfo for SuccessState
     const customInfo = $derived(
-        `Saved <span class="font-bold">${savedPercentage}%</span> (${totalSavedMB} MB)`
+        `Saved <span class="font-bold">${savedPercentage}%</span> (${totalSavedMB} MB)`,
     );
 
     function formatBytes(bytes: number) {
         if (bytes === 0) return "0 B";
         const k = 1024;
         const i = Math.floor(Math.log(bytes) / Math.log(k));
-        return parseFloat((bytes / Math.pow(k, i)).toFixed(1)) + " " + ["B", "KB", "MB", "GB"][i];
+        return (
+            parseFloat((bytes / Math.pow(k, i)).toFixed(1)) +
+            " " +
+            ["B", "KB", "MB", "GB"][i]
+        );
     }
 
     function getSavedPercentage(original: number, result: number) {
         if (original === 0) return "0";
-        return ((original - result) / original * 100).toFixed(1);
+        return (((original - result) / original) * 100).toFixed(1);
     }
 
     function removeFile(i: number) {
@@ -184,112 +190,172 @@
     }
 </script>
 
-
 <div class="w-full">
-    <div class="tool-box relative bg-white rounded-sm border border-gray-200 p-6 space-y-6" 
-         style="height: 340px; overflow: hidden; box-sizing: border-box; width: 100%;">
-                {#if status === "idle"}
-                    <div class="space-y-6">
-                        <Dropzone onFilesSelected={handleFiles} accept="video/*" {t} />
-                        <section id="compressionOptions" class="space-y-4">
-                            <div class="mono text-[11px] text-gray-500 mb-2 uppercase tracking-widest font-bold">
-                                {t.common.options}
-                            </div>
-                            <div class="flex flex-col space-y-2">
-                                <!-- svelte-ignore a11y_label_has_associated_control -->
-                                <label class="mono text-[11px] text-gray-500 uppercase font-bold">{t.videoCompress.quality}</label>
-                                <select bind:value={quality} class="mono text-[13px] px-4 py-2 border border-gray-300 focus:outline-none focus:border-gray-500 rounded-sm bg-white" id="qualityLevel">
-                                    <option class="mono text-[13px]" value="high">{t.videoCompress.qualityLevels.high}</option>
-                                    <option class="mono text-[13px]" value="medium">{t.videoCompress.qualityLevels.medium}</option>
-                                    <option class="mono text-[13px]" value="low">{t.videoCompress.qualityLevels.low}</option>
-                                </select>
-                            </div>
-                        </section>
+    <div
+        class="tool-box relative bg-white rounded-sm border border-gray-200 p-6 space-y-6"
+        style="height: 340px; overflow: hidden; box-sizing: border-box; width: 100%;"
+    >
+        {#if status === "idle"}
+            <div class="space-y-6">
+                <Dropzone onFilesSelected={handleFiles} accept="video/*" {t} />
+                <section id="compressionOptions" class="space-y-4">
+                    <div
+                        class="mono text-[11px] text-gray-500 mb-2 uppercase tracking-widest font-bold"
+                    >
+                        {t.common.options}
                     </div>
-                {:else if status === "selected"}
-                    <div class="space-y-6">
-                        <div class="space-y-2">
-                            <div class="flex flex-col gap-2 mb-6">
-                                <div class="mono text-[11px] text-gray-500 uppercase tracking-widest font-bold">
-                                    {t.common.selectedFiles}
-                                </div>
-                                <div class="flex space-x-2">
-                                    <button onclick={addMoreFiles} class="flex items-center border border-[#10b981] text-[#10b981] mono text-[11px] px-3 py-1 rounded-sm hover:bg-green-50 transition font-bold uppercase tracking-wider">
-                                        <Plus class="w-4 h-4 mr-1" /> Add more
-                                    </button>
-                                    <button onclick={clearFiles} class="flex items-center border border-gray-300 text-gray-600 mono text-[11px] px-3 py-1 rounded-sm hover:bg-gray-50 transition font-bold uppercase tracking-wider">
-                                        <Trash2 class="w-4 h-4 mr-1" /> Clear
-                                    </button>
-                                </div>
-                            </div>
-                            <p class="text-sm text-gray-800">
-                                You have selected <b>{videoQueue.length} {videoQueue.length === 1 ? t.common.fileSelected : t.common.filesSelected}</b> totaling <b>{totalSelectedSize} MB</b>. 
-                                <!-- svelte-ignore a11y_invalid_attribute -->
-                                <a href="#" onclick={(e) => { e.preventDefault(); showFilePanel = true; }} class="text-[#10b981] hover:underline font-medium">{t.common.viewDetail}</a>
-                            </p>
-                        </div>
-                        <section id="compressionOptions" class="space-y-4">
-                            <div class="mono text-[11px] text-gray-500 mb-2 uppercase tracking-widest font-bold">
-                                {t.common.options}
-                            </div>
-                            <div class="flex flex-col space-y-2">
-                                <!-- svelte-ignore a11y_label_has_associated_control -->
-                                <label class="mono text-[11px] text-gray-500 uppercase font-bold">{t.videoCompress.quality}</label>
-                                <select bind:value={quality} class="mono text-[13px] px-4 py-2 border border-gray-300 focus:outline-none focus:border-gray-500 rounded-sm bg-white" id="qualityLevel">
-                                    <option class="mono text-[13px]" value="high">{t.videoCompress.qualityLevels.high}</option>
-                                    <option class="mono text-[13px]" value="medium">{t.videoCompress.qualityLevels.medium}</option>
-                                    <option class="mono text-[13px]" value="low">{t.videoCompress.qualityLevels.low}</option>
-                                </select>
-                            </div>
-                        </section>
-                        <!-- <input type="file" accept="video/*" multiple bind:this={fileInput} class="hidden" onchange={(e) => handleFiles(Array.from(e.target.files || []))} /> -->
-                         <input 
-                            type="file" 
-                            accept="video/*" 
-                            multiple 
-                            bind:this={fileInput} 
-                            class="hidden" 
-                            onchange={(e) => handleFiles(Array.from(e.currentTarget.files || []))} 
-                        />
-                        <button onclick={startCompression} disabled={videoQueue.length === 0} class="w-full bg-[#10b981] text-white mono text-[13px] py-3 rounded-sm hover:bg-green-700 transition disabled:opacity-50 font-bold uppercase tracking-wider">
-                            {t.videoCompress.start}
-                        </button>
+                    <div class="flex flex-col space-y-2">
+                        <!-- svelte-ignore a11y_label_has_associated_control -->
+                        <label
+                            class="mono text-[11px] text-gray-500 uppercase font-bold"
+                            >{t.videoCompress.quality}</label
+                        >
+                        <select
+                            bind:value={quality}
+                            class="mono text-[13px] px-4 py-2 border border-gray-300 focus:outline-none focus:border-gray-500 rounded-sm bg-white"
+                            id="qualityLevel"
+                        >
+                            <option class="mono text-[13px]" value="high"
+                                >{t.videoCompress.qualityLevels.high}</option
+                            >
+                            <option class="mono text-[13px]" value="medium"
+                                >{t.videoCompress.qualityLevels.medium}</option
+                            >
+                            <option class="mono text-[13px]" value="low"
+                                >{t.videoCompress.qualityLevels.low}</option
+                            >
+                        </select>
                     </div>
-                {:else if status === "processing"}
-                    <div class="space-y-6">
-                        <div class="space-y-2">
-                            <div class="mono text-[11px] text-gray-500 uppercase tracking-widest font-bold">
-                                {t.common.processing}
-                            </div>
-                        </div>
-                        <ProcessingState 
-                            progress={overallProgress} 
-                            {t} 
-                            currentFileName={currentFileName}
-                        />
-                    </div>
-                {:else if status === "success"}
-                    <SuccessState 
-                        {processingTime} 
-                        {customInfo} 
-                        {zipUrl} 
-                        onReset={reset} 
-                        {t} 
-                        onViewFiles={viewFiles} 
-                    />
-                {/if}
-
-                {#if showFilePanel}
-                    <FileListPanel 
-                        {videoQueue} 
-                        {status} 
-                        {t} 
-                        onClose={() => showFilePanel = false} 
-                        onRemove={removeFile} 
-                        {formatBytes} 
-                        {getSavedPercentage} 
-                    />
-                {/if}
+                </section>
             </div>
+        {:else if status === "selected"}
+            <div class="space-y-6">
+                <div class="space-y-2">
+                    <div class="flex flex-col gap-2 mb-6">
+                        <div
+                            class="mono text-[11px] text-gray-500 uppercase tracking-widest font-bold"
+                        >
+                            {t.common.selectedFiles}
+                        </div>
+                        <div class="flex space-x-2">
+                            <button
+                                onclick={addMoreFiles}
+                                class="flex items-center border border-[#10b981] text-[#10b981] mono text-[11px] px-3 py-1 rounded-sm hover:bg-green-50 transition font-bold uppercase tracking-wider"
+                            >
+                                <Plus class="w-4 h-4 mr-1" />{t.common.addMore}
+                            </button>
+                            <button
+                                onclick={clearFiles}
+                                class="flex items-center border border-gray-300 text-gray-600 mono text-[11px] px-3 py-1 rounded-sm hover:bg-gray-50 transition font-bold uppercase tracking-wider"
+                            >
+                                <Trash2 class="w-4 h-4 mr-1" />{t.common.clear}
+                            </button>
+                        </div>
+                    </div>
+                    <p class="text-sm text-gray-800">
+                        {t.common.youHaveSelected}
+                        <b
+                            >{videoQueue.length}
+                            {videoQueue.length === 1
+                                ? t.common.fileSelected
+                                : t.common.filesSelected}</b
+                        >
+                        {t.common.totaling} <b>{totalSelectedSize} MB</b>.
+                        <!-- svelte-ignore a11y_invalid_attribute -->
+                        <a
+                            href="#"
+                            onclick={(e) => {
+                                e.preventDefault();
+                                showFilePanel = true;
+                            }}
+                            class="text-[#10b981] hover:underline font-medium"
+                            >{t.common.viewDetail}</a
+                        >
+                    </p>
+                </div>
+                <section id="compressionOptions" class="space-y-4">
+                    <div
+                        class="mono text-[11px] text-gray-500 mb-2 uppercase tracking-widest font-bold"
+                    >
+                        {t.common.options}
+                    </div>
+                    <div class="flex flex-col space-y-2">
+                        <!-- svelte-ignore a11y_label_has_associated_control -->
+                        <label
+                            class="mono text-[11px] text-gray-500 uppercase font-bold"
+                            >{t.videoCompress.quality}</label
+                        >
+                        <select
+                            bind:value={quality}
+                            class="mono text-[13px] px-4 py-2 border border-gray-300 focus:outline-none focus:border-gray-500 rounded-sm bg-white"
+                            id="qualityLevel"
+                        >
+                            <option class="mono text-[13px]" value="high"
+                                >{t.videoCompress.qualityLevels.high}</option
+                            >
+                            <option class="mono text-[13px]" value="medium"
+                                >{t.videoCompress.qualityLevels.medium}</option
+                            >
+                            <option class="mono text-[13px]" value="low"
+                                >{t.videoCompress.qualityLevels.low}</option
+                            >
+                        </select>
+                    </div>
+                </section>
+                <!-- <input type="file" accept="video/*" multiple bind:this={fileInput} class="hidden" onchange={(e) => handleFiles(Array.from(e.target.files || []))} /> -->
+                <input
+                    type="file"
+                    accept="video/*"
+                    multiple
+                    bind:this={fileInput}
+                    class="hidden"
+                    onchange={(e) =>
+                        handleFiles(Array.from(e.currentTarget.files || []))}
+                />
+                <button
+                    onclick={startCompression}
+                    disabled={videoQueue.length === 0}
+                    class="w-full bg-[#10b981] text-white mono text-[13px] py-3 rounded-sm hover:bg-green-700 transition disabled:opacity-50 font-bold uppercase tracking-wider"
+                >
+                    {t.videoCompress.start}
+                </button>
+            </div>
+        {:else if status === "processing"}
+            <div class="space-y-6">
+                <div class="space-y-2">
+                    <div
+                        class="mono text-[11px] text-gray-500 uppercase tracking-widest font-bold"
+                    >
+                        {t.common.processing}
+                    </div>
+                </div>
+                <ProcessingState
+                    progress={overallProgress}
+                    {t}
+                    {currentFileName}
+                />
+            </div>
+        {:else if status === "success"}
+            <SuccessState
+                {processingTime}
+                {customInfo}
+                {zipUrl}
+                onReset={reset}
+                {t}
+                onViewFiles={viewFiles}
+            />
+        {/if}
 
+        {#if showFilePanel}
+            <FileListPanel
+                fileQueue={videoQueue}
+                {status}
+                {t}
+                onClose={() => (showFilePanel = false)}
+                onRemove={removeFile}
+                {formatBytes}
+                {getSavedPercentage}
+            />
+        {/if}
+    </div>
 </div>
