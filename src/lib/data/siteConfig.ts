@@ -13,3 +13,13 @@ export const siteConfig = {
 };
 
 export type SupportedLang = (typeof siteConfig.supportedLangs)[number];
+
+export const getLangFromPath = (path: string | undefined): SupportedLang => {
+  // Nếu path trống (ví dụ: domain.com/video-compressor) -> mặc định là 'en'
+  if (!path) return siteConfig.defaultLang;
+
+  // Tìm trong list languages xem có thằng nào có path khớp không
+  const lang = siteConfig.languages.find(l => l.path.toLowerCase() === path.toLowerCase());
+  
+  return lang ? (lang.id as SupportedLang) : siteConfig.defaultLang;
+};

@@ -6,7 +6,7 @@
 </script>
 
 <footer class="w-full py-8 border-t border-gray-100 bg-gray-50/30">
-  <div class="max-w-[960px] mx-auto px-6">
+  <div class="max-w-[972px] mx-auto px-6">
     <div class="flex flex-col md:flex-row justify-between items-center gap-4">
       <div class="text-[11px] text-gray-400 uppercase tracking-wider font-medium">
         ToolKuai © 2026 — {t.builtFor}

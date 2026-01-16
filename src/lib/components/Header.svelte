@@ -15,7 +15,7 @@
   }
 </script>
 
-<nav class="max-w-[960px] mx-auto py-4 px-6 flex justify-between items-center">
+<nav class="max-w-[972px] mx-auto py-4 px-6 flex justify-between items-center">
   <div class="flex flex-col">
     <a href={lang === siteConfig.defaultLang ? '/' : `/${lang.toLowerCase()}`} 
        class="text-lg font-bold tracking-tight text-slate-900 hover:text-[#10b981] transition-colors">

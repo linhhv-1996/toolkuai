@@ -80,7 +80,7 @@
           <div class="divide-y divide-gray-100 border-t border-b border-gray-100 overflow-hidden">
             {#each category.items as tool}
               {@const Icon = (Icons as any)[tool.icon] || Icons.HelpCircle}
-              <a href="{langPath}/{tool.slug}" class="py-4 px-2 flex items-start justify-between group hover:bg-gray-50 transition-all">
+              <a href="{langPath}/{tool.i18n[lang].slug}" class="py-4 px-2 flex items-start justify-between group hover:bg-gray-50 transition-all">
                 <div class="flex items-start space-x-4">
                   <div class="mt-1 p-2 bg-slate-50 rounded group-hover:bg-white transition-colors">
                     <Icon class="w-4 h-4 text-slate-400 group-hover:text-[#10b981] transition-colors" />

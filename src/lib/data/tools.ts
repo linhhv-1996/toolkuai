@@ -1,3 +1,7 @@
+// src/lib/configs/tool-config.ts
+
+import type { SupportedLang } from "./siteConfig";
+
 export type CategoryId = 'video' | 'image' | 'audio' | 'system';
 
 export interface CategoryMetadata {
@@ -24,6 +28,7 @@ export const categoryNames: Record<CategoryId, { en: CategoryMetadata, 'zh-TW': 
 };
 
 export interface ToolMetadata {
+  slug: string; // Slug riêng cho từng ngôn ngữ
   title: string;
   description: string;
   shortDesc: string;
@@ -33,9 +38,9 @@ export interface ToolMetadata {
 }
 
 export interface ToolConfig {
-  id: string;
+  id: string; // ID duy nhất để map giữa các ngôn ngữ
   categoryId: CategoryId;
-  slug: string;
+  componentId: String;
   icon: string;
   i18n: {
     en: ToolMetadata;
@@ -48,10 +53,11 @@ export const tools: ToolConfig[] = [
   {
     id: 'video-compressor',
     categoryId: 'video',
-    slug: 'video-compressor',
     icon: 'Minimize2',
+    componentId: 'VideoCompressor',
     i18n: {
       en: {
+        slug: 'video-compressor',
         title: 'Video Compressor',
         shortDesc: 'Reduce video size without quality loss',
         description: 'Compress videos online free. Reduce MP4 file size without quality loss locally.',
@@ -60,6 +66,7 @@ export const tools: ToolConfig[] = [
         keywords: ['compress video', 'reduce mp4 size', 'local video optimization']
       },
       'zh-TW': {
+        slug: '影片壓縮',
         title: '影片壓縮',
         shortDesc: '無損壓縮影片大小',
         description: '線上免費壓縮影片。在不損失畫質的情況下減小 MP4 檔案大小。',
@@ -72,10 +79,11 @@ export const tools: ToolConfig[] = [
   {
     id: 'video-converter',
     categoryId: 'video',
-    slug: 'video-converter',
     icon: 'RefreshCw',
+    componentId: 'VideoCompressor',
     i18n: {
       en: {
+        slug: 'video-converter',
         title: 'Video Converter',
         shortDesc: 'Convert between formats instantly',
         description: 'Free video converter tool. Convert MP4 to MOV or any format locally.',
@@ -84,6 +92,7 @@ export const tools: ToolConfig[] = [
         keywords: ['video converter', 'mp4 to mov', 'video format changer']
       },
       'zh-TW': {
+        slug: '影片轉檔',
         title: '影片轉檔',
         shortDesc: '快速轉換影片格式',
         description: '免費影片轉檔工具。在地轉換 MP4、MOV 或任何格式。',
@@ -96,10 +105,11 @@ export const tools: ToolConfig[] = [
   {
     id: 'video-to-mp3',
     categoryId: 'video',
-    slug: 'video-to-mp3',
     icon: 'Music',
+    componentId: 'VideoCompressor',
     i18n: {
       en: {
+        slug: 'video-to-mp3',
         title: 'Video to MP3',
         shortDesc: 'Extract audio from video files',
         description: 'Convert video to MP3 online free. Extract audio from videos quickly.',
@@ -108,11 +118,12 @@ export const tools: ToolConfig[] = [
         keywords: ['video to mp3', 'extract audio from video', 'mp4 to mp3']
       },
       'zh-TW': {
+        slug: '影片轉-mp3',
         title: '影片轉 MP3',
         shortDesc: '從影片提取音訊',
         description: '線上免費將影片轉為 MP3。快速從影片中提取高品質音訊。',
         metaTitle: '影片轉 MP3 線上免費工具 - 從影片快速提取音訊 (免上傳)',
-        metaDescription: '快速從 MP4 或 MOV 影片中提取高品質 MP3。在地處理，檔案不離身，隱私有保障。',
+        metaDescription: '快速從 MP4 hoặc MOV 影片中提取高品質 MP3。在地處理，檔案不離身，隱私有保障。',
         keywords: ['影片轉 MP3', '影片轉音檔', 'MP4 轉 MP3', '提取音訊']
       }
     }
@@ -120,10 +131,11 @@ export const tools: ToolConfig[] = [
   {
     id: 'video-to-gif',
     categoryId: 'video',
-    slug: 'video-to-gif',
     icon: 'Film',
+    componentId: 'VideoCompressor',
     i18n: {
       en: {
+        slug: 'video-to-gif',
         title: 'Video to GIF',
         shortDesc: 'Create animated GIFs from videos',
         description: 'Convert video to GIF free online. High-quality GIF maker tool.',
@@ -132,6 +144,7 @@ export const tools: ToolConfig[] = [
         keywords: ['video to gif', 'gif maker', 'mp4 to gif']
       },
       'zh-TW': {
+        slug: '影片轉-gif',
         title: '影片轉 GIF',
         shortDesc: '將影片製作成動圖',
         description: '線上免費將影片轉換為 GIF。高品質 GIF 製作工具。',
@@ -146,10 +159,11 @@ export const tools: ToolConfig[] = [
   {
     id: 'heic-to-jpg',
     categoryId: 'image',
-    slug: 'heic-to-jpg',
     icon: 'Smartphone',
+    componentId: 'VideoCompressor',
     i18n: {
       en: {
+        slug: 'heic-to-jpg',
         title: 'HEIC to JPG',
         shortDesc: 'Convert iPhone photos to JPG',
         description: 'Free HEIC to JPG converter online. No upload required.',
@@ -158,6 +172,7 @@ export const tools: ToolConfig[] = [
         keywords: ['heic to jpg', 'iphone image converter', 'heic converter']
       },
       'zh-TW': {
+        slug: 'heic-轉-jpg',
         title: 'HEIC 轉 JPG',
         shortDesc: 'iPhone 照片轉 JPG',
         description: '線上免費 HEIC 轉 JPG 轉換器。在地處理，無需上傳。',
@@ -170,10 +185,11 @@ export const tools: ToolConfig[] = [
   {
     id: 'pdf-to-jpg',
     categoryId: 'image',
-    slug: 'pdf-to-jpg',
     icon: 'FileImage',
+    componentId: 'VideoCompressor',
     i18n: {
       en: {
+        slug: 'pdf-to-jpg',
         title: 'PDF to JPG',
         shortDesc: 'Extract images from PDF files',
         description: 'Convert PDF to JPG free online. High-quality PDF to image converter.',
@@ -182,6 +198,7 @@ export const tools: ToolConfig[] = [
         keywords: ['pdf to jpg', 'pdf to image', 'extract images from pdf']
       },
       'zh-TW': {
+        slug: 'pdf-轉-jpg',
         title: 'PDF 轉 JPG',
         shortDesc: '從 PDF 提取圖片',
         description: '線上免費將 PDF 轉為 JPG。高品質 PDF 轉圖片工具。',
@@ -194,10 +211,11 @@ export const tools: ToolConfig[] = [
   {
     id: 'image-compressor',
     categoryId: 'image',
-    slug: 'image-compressor',
     icon: 'Image',
+    componentId: 'VideoCompressor',
     i18n: {
       en: {
+        slug: 'image-compressor',
         title: 'Image Compressor',
         shortDesc: 'Optimize images for web performance',
         description: 'Free image compressor online. Reduce JPG, PNG file size.',
@@ -206,6 +224,7 @@ export const tools: ToolConfig[] = [
         keywords: ['image compressor', 'reduce photo size', 'optimize images']
       },
       'zh-TW': {
+        slug: '圖片壓縮',
         title: '圖片壓縮',
         shortDesc: '縮小照片檔案大小',
         description: '線上免費圖片壓縮。減小 JPG、PNG 檔案大小。',
@@ -220,10 +239,11 @@ export const tools: ToolConfig[] = [
   {
     id: 'audio-to-text',
     categoryId: 'audio',
-    slug: 'audio-to-text',
     icon: 'Type',
+    componentId: 'VideoCompressor',
     i18n: {
       en: {
+        slug: 'audio-to-text',
         title: 'Audio to Text',
         shortDesc: 'Transcribe audio to text free online',
         description: 'Convert speech to text accurately. AI-powered transcription tool.',
@@ -232,6 +252,7 @@ export const tools: ToolConfig[] = [
         keywords: ['audio to text', 'transcription', 'speech to text converter']
       },
       'zh-TW': {
+        slug: '音訊轉文字',
         title: '音訊轉文字',
         shortDesc: '錄音檔快速轉逐字稿',
         description: '線上免費音訊轉文字。精準 AI 轉譯工具。',
@@ -244,10 +265,11 @@ export const tools: ToolConfig[] = [
   {
     id: 'speech-to-text',
     categoryId: 'audio',
-    slug: 'speech-to-text',
     icon: 'Mic',
+    componentId: 'VideoCompressor',
     i18n: {
       en: {
+        slug: 'speech-to-text',
         title: 'Speech to Text',
         shortDesc: 'Transcribe voice recordings accurately',
         description: 'Free speech to text converter online. Local AI speech recognition tool.',
@@ -256,11 +278,12 @@ export const tools: ToolConfig[] = [
         keywords: ['speech to text', 'voice transcription', 'audio to text']
       },
       'zh-TW': {
+        slug: '語音轉文字',
         title: '語音轉文字',
         shortDesc: '精準 AI 語音辨識',
         description: '線上免費語音轉文字。在地 AI 語音辨識工具。',
         metaTitle: '語音轉文字線上免費工具 - AI 語音辨識 (在地處理)',
-        metaDescription: '即時將語音轉換為文字，支援繁體中文。檔案不需上傳，保護會議紀錄隱私。',
+        metaDescription: '即時將語音轉換為文字，支援繁體中文。檔案 không cần upload, bảo vệ quyền riêng tư.',
         keywords: ['語音轉文字', 'AI 語音辨識', '即時逐字稿']
       }
     }
@@ -268,10 +291,11 @@ export const tools: ToolConfig[] = [
   {
     id: 'm4a-to-mp3',
     categoryId: 'audio',
-    slug: 'm4a-to-mp3',
     icon: 'FileAudio',
+    componentId: 'VideoCompressor',
     i18n: {
       en: {
+        slug: 'm4a-to-mp3',
         title: 'M4A to MP3',
         shortDesc: 'Convert voice memos to MP3',
         description: 'Convert M4A to MP3 free online. High-quality audio conversion.',
@@ -280,6 +304,7 @@ export const tools: ToolConfig[] = [
         keywords: ['m4a to mp3', 'audio converter', 'convert voice memo']
       },
       'zh-TW': {
+        slug: 'm4a-轉-mp3',
         title: 'M4A 轉 MP3',
         shortDesc: 'iPhone 錄音轉檔',
         description: '線上免費將 M4A 轉為 MP3。高品質音訊轉換。',
@@ -294,10 +319,11 @@ export const tools: ToolConfig[] = [
   {
     id: 'bulk-rename',
     categoryId: 'system',
-    slug: 'bulk-rename',
     icon: 'PencilLine',
+    componentId: 'VideoCompressor',
     i18n: {
       en: {
+        slug: 'bulk-rename',
         title: 'Bulk Rename',
         shortDesc: 'Rename multiple files quickly',
         description: 'Bulk rename files free online. Rename multiple files using patterns.',
@@ -306,7 +332,8 @@ export const tools: ToolConfig[] = [
         keywords: ['bulk rename', 'batch rename files', 'rename tool']
       },
       'zh-TW': {
-        title: '批次重新命名',
+        slug: '批次重新命名',
+        title: 'Bulk Rename',
         shortDesc: '大量改名工具',
         description: '線上免費批次重新命名。使用模式快速命名多個檔案。',
         metaTitle: '批次重新命名線上工具 - 快速安全更改大量檔案名稱',
@@ -316,3 +343,12 @@ export const tools: ToolConfig[] = [
     }
   }
 ];
+
+// Hàm Helper để tìm tool theo slug và ngôn ngữ
+export const getToolBySlug = (slug: string, lang: SupportedLang) => {
+  // lang lúc này chắc chắn là 'en' hoặc 'zh-TW' (đã khớp key của i18n)
+  return tools.find(tool => {
+    // Phải kiểm tra slug của đúng ngôn ngữ đó
+    return tool.i18n[lang].slug === slug;
+  });
+};

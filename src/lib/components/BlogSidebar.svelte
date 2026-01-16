@@ -6,11 +6,11 @@
     let { lang = siteConfig.defaultLang }: { lang: SupportedLang } = $props();
     const t = $derived(ui[lang]?.blog);
     const langPath = $derived(lang === siteConfig.defaultLang ? "" : `/${lang}`);
-    const postsPromise = getLatestPosts(lang, 3);
+    const postsPromise = $derived(getLatestPosts(lang, 3));
 </script>
 
-<div class="w-full md:w-[310px] sticky top-4 self-start">
-    <div class="text-[11px] font-bold uppercase tracking-[0.2em] text-slate-400 mb-3 ml-1">
+<div class="w-full flex-1 flex-shrink-0">
+    <div class="text-[11px] font-bold uppercase tracking-[0.2em] text-slate-400 mb-3 ml-0">
         {t.recent}
     </div>
 
@@ -21,7 +21,7 @@
             </div>
         {:then posts}
             {#each posts as post}
-                <a href="{langPath}/blog/{post.slug}" class="py-4 px-2 block group hover:bg-gray-50 transition-colors">
+                <a href="{langPath}/blog/{post.slug}" class="py-4 px-0 block group hover:bg-gray-50 transition-colors">
                     <div class="text-sm font-semibold text-slate-900 leading-snug mb-1.5 group-hover:text-[#10b981] transition-colors">
                         {post.title}
                     </div>

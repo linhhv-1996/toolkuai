@@ -28,8 +28,7 @@
     );
     const t = $derived(toolUi[currentLang]);
     const langPath = $derived(currentLang === siteConfig.defaultLang ? "" : `/${currentLang}`);
-    let { data } = $props();
-    const MarkdownContent = $derived(data.MarkdownContent);
+
     // App State
     let videoQueue = $state<any[]>([]);
     let status = $state<"idle" | "selected" | "processing" | "success">("idle");
@@ -39,7 +38,7 @@
     let processingTime = $state<string>(""); // New: for processing time
     // Options
     let quality = $state("medium");
-    let fileInput = $state();
+    let fileInput = $state<HTMLInputElement>();
     // Panel state
     let showFilePanel = $state(false);
     // New states for ProcessingState
@@ -63,7 +62,7 @@
     }
 
     function addMoreFiles() {
-        fileInput.click();
+        fileInput?.click();
     }
 
     function clearFiles() {
@@ -181,7 +180,7 @@
     }
 
     function getSavedPercentage(original: number, result: number) {
-        if (original === 0) return 0;
+        if (original === 0) return "0";
         return ((original - result) / original * 100).toFixed(1);
     }
 
@@ -194,27 +193,10 @@
     }
 </script>
 
-<main class="max-w-[960px] mx-auto px-6 mb-12 mt-10" ondrop={handleDrop} ondragover={(e) => e.preventDefault()}>
-    <nav class="mb-4">
-        <a
-            href="{langPath || '/'}"
-            class="inline-flex items-center space-x-1 text-gray-500 hover:text-[#10b981] transition-colors mono text-[11px] uppercase tracking-wider group"
-        >
-            <ChevronLeft class="w-4 h-4 transition-transform group-hover:-translate-x-1" />
-            <span>{t.common.backToTools}</span>
-        </a>
-    </nav>
-    <div class="mb-12">
-        <h1 class="text-2xl md:text-3xl font-bold text-gray-900 mb-1 tracking-tight">
-            {t.videoCompress.title}
-        </h1>
-        <p class="text-[15px] text-gray-600 max-w-md mb-6 mx-auto md:mx-0 leading-relaxed">
-            {t.videoCompress.subTitle}
-        </p>
-    </div>
-    <div class="flex flex-col md:flex-row gap-6">
-        <div class="w-full md:w-[630px] flex-shrink-0">
-            <div class="tool-box relative bg-white rounded-sm border border-gray-200 p-6 space-y-6" style="height: 340px; overflow: hidden;">
+
+<div class="w-full">
+    <div class="tool-box relative bg-white rounded-sm border border-gray-200 p-6 space-y-6" 
+         style="height: 340px; overflow: hidden; box-sizing: border-box; width: 100%;">
                 {#if status === "idle"}
                     <div class="space-y-6">
                         <Dropzone onFilesSelected={handleFiles} accept="video/*" {t} />
@@ -223,6 +205,7 @@
                                 {t.common.options}
                             </div>
                             <div class="flex flex-col space-y-2">
+                                <!-- svelte-ignore a11y_label_has_associated_control -->
                                 <label class="mono text-[11px] text-gray-500 uppercase font-bold">{t.videoCompress.quality}</label>
                                 <select bind:value={quality} class="mono text-[13px] px-4 py-2 border border-gray-300 focus:outline-none focus:border-gray-500 rounded-sm bg-white" id="qualityLevel">
                                     <option class="mono text-[13px]" value="high">{t.videoCompress.qualityLevels.high}</option>
@@ -259,6 +242,7 @@
                                 {t.common.options}
                             </div>
                             <div class="flex flex-col space-y-2">
+                                <!-- svelte-ignore a11y_label_has_associated_control -->
                                 <label class="mono text-[11px] text-gray-500 uppercase font-bold">{t.videoCompress.quality}</label>
                                 <select bind:value={quality} class="mono text-[13px] px-4 py-2 border border-gray-300 focus:outline-none focus:border-gray-500 rounded-sm bg-white" id="qualityLevel">
                                     <option class="mono text-[13px]" value="high">{t.videoCompress.qualityLevels.high}</option>
@@ -267,7 +251,15 @@
                                 </select>
                             </div>
                         </section>
-                        <input type="file" accept="video/*" multiple bind:this={fileInput} class="hidden" onchange={(e) => handleFiles(Array.from(e.target.files || []))} />
+                        <!-- <input type="file" accept="video/*" multiple bind:this={fileInput} class="hidden" onchange={(e) => handleFiles(Array.from(e.target.files || []))} /> -->
+                         <input 
+                            type="file" 
+                            accept="video/*" 
+                            multiple 
+                            bind:this={fileInput} 
+                            class="hidden" 
+                            onchange={(e) => handleFiles(Array.from(e.currentTarget.files || []))} 
+                        />
                         <button onclick={startCompression} disabled={videoQueue.length === 0} class="w-full bg-[#10b981] text-white mono text-[13px] py-3 rounded-sm hover:bg-green-700 transition disabled:opacity-50 font-bold uppercase tracking-wider">
                             {t.videoCompress.start}
                         </button>
@@ -309,14 +301,4 @@
                 {/if}
             </div>
 
-            <article
-    class="blog-content border-t border-gray-100 pt-10 mt-16"
->
-    {#if MarkdownContent}
-        <MarkdownContent />
-    {/if}
-</article>
-        </div>
-        <BlogSidebar lang={currentLang} />
-    </div>
-</main>
+</div>
