@@ -25,10 +25,10 @@
                     <div class="text-sm font-semibold text-slate-900 leading-snug mb-1.5 group-hover:text-[#10b981] transition-colors">
                         {post.title}
                     </div>
-                    <div class="text-[13px] text-gray-500 leading-normal line-clamp-2 mb-2">
+                    <div class="text-[13px] text-slate-600 leading-normal line-clamp-2 mb-2">
                         {post.description}
                     </div>
-                    <div class="text-[10px] font-bold text-gray-400 uppercase tracking-tight">
+                    <div class="text-[11px] font-bold text-slate-500 uppercase tracking-tight">
                         {new Date(post.date).toLocaleDateString('en', { 
                             year: 'numeric', month: 'short', day: 'numeric' 
                         })}

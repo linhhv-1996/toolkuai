@@ -12,9 +12,9 @@ export default {
       },
       fontFamily: {
         // Đặt Plus Jakarta Sans làm mặc định cho cả trang
-        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+        sans: ['"Merriweather"', 'sans-serif'],
         // Giữ mono cho các con số kỹ thuật nếu cần
-        mono: ['"Plus Jakarta Sans"', 'sans-serif'],
+        mono: ['"Merriweather"', 'sans-serif'],
       },
     },
   },

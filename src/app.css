@@ -10,7 +10,12 @@ body {
 }
 
 .mono {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Merriweather', sans-serif;
+}
+
+input, select, textarea, button {
+    font-family: inherit;
+    font-size: inherit;
 }
 
 .tool-item,
@@ -45,50 +50,77 @@ a {
 }
 
 
-/* Ép nội dung Markdown dày đặc hơn, bớt khoảng trắng thừa */
-.prose {
-  /* Giảm khoảng cách giữa các khối lớn */
-  --tw-prose-body: theme('colors.gray.600');
+
+@layer components {
+  .blog-content {
+    @apply prose max-w-none;
+    font-family: 'Merriweather', serif;
+    font-size: 0.9375rem; /* ~15px - Kích thước hoàn hảo để nhồi thông tin */
+    color: theme('colors.slate.700');
+  }
+
+  /* Khử gạch chân link và làm mượt nét chữ */
+  .blog-content a {
+    @apply no-underline text-[#10b981] font-normal;
+  }
+  .blog-content a:hover {
+    @apply border-b border-[#10b981];
+  }
+
+  /* --- ÉP KHOẢNG TRẮNG THEO Ý ÔNG --- */
+
+  /* Tiêu đề H2 */
+  .blog-content h2 {
+    @apply font-bold text-slate-800 border-b border-gray-100 pb-2;
+    margin-top: 1.5rem !important;
+    margin-bottom: 0.5rem !important;
+    font-size: 1.25rem !important; /* ~20px */
+  }
+
+  /* Tiêu đề H3 */
+  .blog-content h3 {
+    @apply font-bold text-slate-800;
+    margin-top: 1.25rem !important;
+    margin-bottom: 0.4rem !important;
+    font-size: 1.1rem !important; /* ~17.6px */
+  }
+
+  /* Đoạn văn (Paragraph) */
+  .blog-content p {
+    @apply font-medium;
+    margin-top: 0.5rem !important;
+    margin-bottom: 0.75rem !important;
+    line-height: 1.5 !important;
+  }
+
+  /* Danh sách (Lists) */
+  .blog-content ul,
+  .blog-content ol {
+    margin-top: 0.5rem !important;
+    margin-bottom: 0.75rem !important;
+  }
+
+  .blog-content li {
+    @apply font-medium;
+    margin-top: 0.2rem !important;
+    margin-bottom: 0.2rem !important;
+  }
+
+  /* Đường kẻ ngang (HR) */
+  .blog-content hr {
+    margin-top: 2rem !important;
+    margin-bottom: 2rem !important;
+    @apply border-gray-100;
+  }
+
+  /* Khử dấu backtick ở thẻ code để nhìn sạch hơn */
+  .blog-content code::before,
+  .blog-content code::after {
+    content: "" !important;
+  }
+  
+  .blog-content code {
+    @apply text-[#10b981] bg-slate-50 px-1.5 py-0.5 rounded text-[13px] font-medium;
+  }
 }
 
-/* Target trực tiếp các thẻ bên trong prose */
-.prose h2 {
-  margin-top: 1.5rem !important;
-  /* Mặc định thường là 2rem+ */
-  margin-bottom: 0.5rem !important;
-  font-size: 1.25rem !important;
-}
-
-.prose h3 {
-  margin-top: 1.25rem !important;
-  margin-bottom: 0.4rem !important;
-  font-size: 1.1rem !important;
-}
-
-.prose {
-  font-size: 0.9375rem; /* ~15px, giữa sm và base */
-}
-
-.prose p {
-  margin-top: 0.5rem !important;
-  margin-bottom: 0.75rem !important;
-  /* Giảm margin bottom của đoạn văn */
-  line-height: 1.5 !important;
-  /* Độ giãn dòng vừa phải */
-}
-
-.prose ul,
-.prose ol {
-  margin-top: 0.5rem !important;
-  margin-bottom: 0.75rem !important;
-}
-
-.prose li {
-  margin-top: 0.2rem !important;
-  margin-bottom: 0.2rem !important;
-}
-
-.prose hr {
-  margin-top: 2rem !important;
-  margin-bottom: 2rem !important;
-}

@@ -48,7 +48,7 @@
     {t.hero.h1}
   </h1>
 
-  <p class="text-[15px] text-gray-500 max-w-lg mb-8 mx-auto md:mx-0 leading-relaxed">
+  <p class="text-[15px] text-slate-600 max-w-lg mb-8 mx-auto md:mx-0 leading-relaxed">
     {t.hero.h2}
     <a href="{langPath}/how-it-works" class="text-slate-900 font-bold hover:text-[#10b981] transition-colors ml-1 underline decoration-gray-200 underline-offset-4">
       {t.hero.howItWorks}
@@ -89,7 +89,7 @@
                     <div class="text-[15px] font-bold text-slate-900 group-hover:text-[#10b981] transition-colors mb-0.5">
                       {tool.i18n[lang].title}
                     </div>
-                    <div class="text-[13px] text-gray-500 leading-relaxed max-w-[450px]">
+                    <div class="text-[13px] text-slate-600 leading-relaxed max-w-[450px]">
                       {tool.i18n[lang].description}
                     </div>
                   </div>
