@@ -164,7 +164,7 @@ export const tools: ToolConfig[] = [
     id: 'heic-to-jpg',
     categoryId: 'image',
     icon: 'Smartphone',
-    componentId: 'VideoCompressor',
+    componentId: 'Heic2Jpeg',
     i18n: {
       en: {
         slug: 'heic-to-jpg',

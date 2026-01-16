@@ -17,9 +17,8 @@
     import Dropzone from "$lib/components/tool/Dropzone.svelte";
     import ProcessingState from "$lib/components/tool/ProcessingState.svelte";
     import SuccessState from "$lib/components/tool/SuccessState.svelte";
-    import BlogSidebar from "$lib/components/BlogSidebar.svelte";
     import FileListPanel from "$lib/components/tool/FileListPanel.svelte"; // THÊM: Import component mới
-    import { ChevronLeft, Plus, Trash2 } from "lucide-svelte"; // Thêm Plus và Trash2 cho icons
+    import { Plus, Trash2 } from "lucide-svelte"; // Thêm Plus và Trash2 cho icons
 
     const currentLang = $derived(
         (siteConfig.languages.find(
@@ -27,7 +26,6 @@
         )?.id || siteConfig.defaultLang) as SupportedLang,
     );
     const t = $derived(toolUi[currentLang]);
-    const langPath = $derived(currentLang === siteConfig.defaultLang ? "" : `/${currentLang}`);
 
     // App State
     let videoQueue = $state<any[]>([]);
@@ -71,12 +69,6 @@
     }
 
     // Add drop over whole main for add more
-    function handleDrop(e: any) {
-        e.preventDefault();
-        if (status === "selected" && e.dataTransfer?.files) {
-            handleFiles(Array.from(e.dataTransfer.files));
-        }
-    }
 
     async function startCompression() {
         if (videoQueue.length === 0) return;
@@ -161,7 +153,6 @@
     const totalSelectedSize = $derived(
         (totalOriginalBytes / 1024 / 1024).toFixed(1)
     );
-    const totalCompressedFiles = $derived(videoQueue.length);
     const totalSavedMB = $derived((totalSavedBytes / 1024 / 1024).toFixed(1));
     const savedPercentage = $derived(
         totalOriginalBytes > 0 ? ((totalSavedBytes / totalOriginalBytes) * 100).toFixed(1) : "0"

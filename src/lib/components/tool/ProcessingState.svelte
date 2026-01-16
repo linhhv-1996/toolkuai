@@ -53,11 +53,11 @@
                     </filter>
                 </defs>
                 <circle class="stroke-current text-gray-200" stroke-width="12" cx="60" cy="60" r="{radius}" fill="transparent"></circle> <!-- Tăng stroke-width để dày hơn -->
-                <circle class="stroke-current transition-all duration-300 animate-rotate-slow" stroke-width="12" stroke-dasharray="{circumference}" stroke-dashoffset="{dashoffset}" cx="60" cy="60" r="{radius}" fill="transparent" stroke-linecap="round" style="transform: rotate(-90deg); transform-origin: 50% 50%; stroke: url(#progressGradient); filter: url(#glowFilter);"></circle> <!-- Gradient và glow filter -->
-                <text x="60" y="60" font-size="24" md:font-size="28" text-anchor="middle" dominant-baseline="central" class="fill-current text-gray-800 font-extrabold animate-pulse">{$animatedProgress.toFixed(0)}%</text>
+                <circle class="stroke-current transition-all duration-300 animate-rotate-slow" stroke-width="12" stroke-dasharray="{circumference}" stroke-dashoffset="{dashoffset}" cx="60" cy="60" r="{radius}" fill="transparent" stroke-linecap="round" style="transform: rotate(-90deg); transform-origin: 50% 50%; stroke: url(#progressGradient); filter: url(#glowFilter);"></circle>
+                <text x="60" y="60" font-size="26" text-anchor="middle" dominant-baseline="central" class="fill-current text-gray-800 font-extrabold animate-pulse">{$animatedProgress.toFixed(0)}%</text>
             </svg>
             {#if currentFileName}
-                <div class="mt-4 text-center text-sm md:text-base text-gray-700 font-medium max-w-full md:max-w-md">
+                <div class="mt-4 text-center text-sm md:text-base text-gray-700 font-medium max-w-full md:max-w-md line-clamp-2 break-all">
                     Processing: {currentFileName}
                 </div>
             {/if}

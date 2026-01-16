@@ -2,20 +2,28 @@
     import { siteConfig } from "$lib/data/siteConfig";
     import BlogSidebar from "$lib/components/BlogSidebar.svelte";
     import VideoCompressor from "$lib/tools/VideoCompressor.svelte";
+    import Heic2Jpeg from "$lib/tools/Heic2Jpeg.svelte";
+    import ImageCompressor from "$lib/tools/ImageCompressor.svelte";
+    import PdfCompressor from "$lib/tools/PdfCompressor.svelte";
+
     import RelatedTools from "$lib/components/RelatedTools.svelte";
     import { ui } from "$lib/data/ui.js";
     import { ChevronLeft } from "lucide-svelte";
-    // ... các tool khác
 
     let { data } = $props();
     const { tool, lang, metadata } = $derived(data);
 
-    const homePath = $derived(lang === siteConfig.defaultLang ? "/" : `/${lang.toLowerCase()}`);
-    
-    const t = $derived(ui[lang]?.common || { backToTools: 'Back to Tools' });
+    const homePath = $derived(
+        lang === siteConfig.defaultLang ? "/" : `/${lang.toLowerCase()}`,
+    );
+
+    const t = $derived(ui[lang]?.common || { backToTools: "Back to Tools" });
 
     const toolComponents: Record<string, any> = {
         "video-compressor": VideoCompressor,
+        "heic-to-jpg": Heic2Jpeg,
+        "image-compressor": ImageCompressor,
+        "pdf-compressor": PdfCompressor,
     };
 
     const SelectedTool = $derived(toolComponents[tool.id]);
@@ -52,20 +60,20 @@
 </svelte:head>
 
 <main class="max-w-[972px] mx-auto px-6 mb-12 mt-10 box-border">
-
     <nav class="w-full mb-6">
         <a
             href={homePath}
             class="inline-flex items-center space-x-1 text-gray-500 hover:text-[#10b981] transition-colors mono text-[11px] uppercase tracking-wider group"
         >
-            <ChevronLeft class="w-4 h-4 transition-transform group-hover:-translate-x-1" />
+            <ChevronLeft
+                class="w-4 h-4 transition-transform group-hover:-translate-x-1"
+            />
             <span>{t.backToTools}</span>
         </a>
     </nav>
-    
+
     <div class="flex flex-col md:flex-row gap-6">
         <div class="w-full md:w-[600px] flex-shrink-0">
-            
             <div class="mb-12">
                 {#if SelectedTool}
                     <SelectedTool {lang} {metadata} />
