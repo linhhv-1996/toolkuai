@@ -1,4 +1,5 @@
 import type { SupportedLang } from '$lib/data/siteConfig';
+import { render } from 'svelte/server';
 
 export async function getLatestPosts(lang: SupportedLang, limit = 3) {
     // Quét toàn bộ file .md trong folder content/blog
@@ -26,4 +27,23 @@ export async function getLatestPosts(lang: SupportedLang, limit = 3) {
     return posts
         .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
         .slice(0, limit);
+}
+
+export async function getPostBySlug(lang: SupportedLang, slug: string) {
+    // Dùng đường dẫn tuyệt đối từ gốc project như mày đã làm ở getLatestPosts
+    const allPosts = import.meta.glob('/src/content/blog/**/*.md', { eager: true });
+    
+    // Tạo path chính xác để map với key trong allPosts
+    const path = `/src/content/blog/${lang.toLowerCase()}/${slug}.md`;
+    const file = allPosts[path] as any;
+    
+    if (file && file.metadata) {
+        const rendered = render(file.default, {});
+        
+        return {
+            content: rendered.html,
+            meta: file.metadata
+        };
+    }
+    return null;
 }

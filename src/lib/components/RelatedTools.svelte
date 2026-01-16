@@ -3,10 +3,10 @@
     import { siteConfig, type SupportedLang } from "$lib/data/siteConfig";
     import { ui } from "$lib/data/ui";
 
-    let { lang = siteConfig.defaultLang, currentToolId = "" }: { lang: SupportedLang, currentToolId?: string } = $props();
+    let { lang = siteConfig.defaultLang, currentToolId = "", num = 3 }: { lang: SupportedLang, currentToolId?: string, num?: number } = $props();
     
     // Lấy label từ UI config (giả định mày có key relatedTools trong ui[lang].common hoặc tương tự)
-    const t = $derived(ui[lang]?.common || { related: "Related Tools", viewAll: "All Tools" });
+    const t = $derived(ui[lang]?.common || { related: "More Tools", viewAll: "All Tools" });
     const langPath = $derived(lang === siteConfig.defaultLang ? "" : `/${lang.toLowerCase()}`);
 
     // Logic xáo trộn và lấy 3 tool
@@ -16,13 +16,13 @@
         // 2. Xáo trộn ngẫu nhiên (Fisher-Yates shuffle rút gọn)
         const shuffled = [...filtered].sort(() => Math.random() - 0.5);
         // 3. Lấy 3 thằng đầu
-        return shuffled.slice(0, 3);
+        return shuffled.slice(0, num);
     });
 </script>
 
 <div class="w-full flex-1 flex-shrink-0">
     <div class="text-[11px] font-bold uppercase tracking-[0.2em] text-slate-400 mb-3 ml-0">
-        {t.related || 'Related Tools'}
+        {t.related || 'More Tools'}
     </div>
 
     <div class="divide-y divide-gray-100 border-t border-b border-gray-100 bg-white">
