@@ -20,7 +20,7 @@ export const toolUi = {
       options: "Compression Options",
       outputFormat: "Output Format",
       progress: "Compression Progress",
-      results: "Compressed Videos",
+      result: "Result",
       compressMore: "Compress More Videos",
       savedMessage: "You saved {size}!",
       shareResults: "Share your results",
@@ -45,6 +45,7 @@ export const toolUi = {
       format: "Format",
       quality: "Quality",
       processedFiles: "Processed Files",
+      savedPercent: "({percent}% saved)",
     },
     videoCompress: {
       title: "Video Compressor",
@@ -97,7 +98,7 @@ export const toolUi = {
       options: "壓縮選項",
       outputFormat: "輸出格式",
       progress: "壓縮進度",
-      results: "壓縮結果",
+      result: "Result",
       compressMore: "繼續壓縮",
       savedMessage: "您節省了 {size}!",
       shareResults: "分享結果",
@@ -122,6 +123,7 @@ export const toolUi = {
       format: "Format",
       quality: "Quality",
       processedFiles: "Processed Files",
+      savedPercent: "({percent}% saved)",
     },
     videoCompress: {
       title: "影片壓縮",

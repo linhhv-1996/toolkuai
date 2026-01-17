@@ -94,12 +94,17 @@
                 clearInterval(animationInterval);
                 item.progress = 100;
 
+                const outputFileName = item.file.name.replace(/\.[^/.]+$/, `.${outputFormat}`);
+            
+                item.resultSize = convertedBlob.size;
+                item.resultBlob = convertedBlob; // Lưu Blob để download lẻ
+                item.resultName = outputFileName; // Lưu tên mới để hiển thị Panel
+
                 const arrayBuffer = await convertedBlob.arrayBuffer();
                 const result = new Uint8Array(arrayBuffer);
                 item.resultSize = result.length;
                 totalSavedBytes += item.file.size - result.length;
 
-                const outputFileName = item.file.name.replace(/\.[^/.]+$/, `.${outputFormat}`);
                 zip.file(`toolkuai_${outputFileName}`, result);
                 item.status = "done";
             }
@@ -125,6 +130,19 @@
         zipUrl = null;
         status = "idle";
         processingTime = "";
+    }
+
+    function downloadSingleFile(item: any) {
+        if (!item.resultBlob) return;
+        
+        const url = URL.createObjectURL(item.resultBlob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = item.resultName || "download";
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
     }
 
     // Derived totals
@@ -256,13 +274,14 @@
                 </div>
                 <ProcessingState 
                     progress={overallProgress} 
-                    {t} 
-                    currentFileName={currentFileName}
+                    currentIndex={heicQueue.findIndex(item => item.status === 'processing') + 1}
+                    totalFiles={heicQueue.length}
+                    {t}
+                    radius={150} 
+                    marginTop="40px"
                 />
 
-                <p class="mono text-center text-[12px] text-slate-400 tracking-widest font-medium" style="margin-top: 25px !important">
-                    {@html t.heic2jpg.tips}
-                </p>
+        
             </div>
         {:else if status === "success"}
             <SuccessState 
@@ -287,6 +306,8 @@
                 onRemove={removeFile} 
                 {formatBytes} 
                 getSavedPercentage={getReducedPercentage} 
+                onDownload={downloadSingleFile} 
+                isCompressor={false}
             />
         {/if}
     </div>

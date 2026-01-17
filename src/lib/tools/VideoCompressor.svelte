@@ -116,6 +116,11 @@
                     );
                 }
                 const result = new Uint8Array(output.target.buffer);
+
+                item.resultSize = result.length;
+                item.resultName = `compressed_${item.file.name}`; // Tên file khi tải lẻ
+                item.resultBlob = new Blob([result], { type: 'video/mp4' });
+
                 item.resultSize = result.length;
                 totalSavedBytes += item.file.size - result.length;
                 zip.file(`toolkuai_${item.file.name}`, result);
@@ -144,6 +149,19 @@
         status = "idle";
         overallProgress = 0;
         processingTime = ""; // Reset
+    }
+
+    function downloadSingleFile(item: any) {
+        if (!item.resultBlob) return;
+        
+        const url = URL.createObjectURL(item.resultBlob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = item.resultName || `compressed_${item.file.name}`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
     }
 
     // Derived totals
@@ -329,10 +347,13 @@
                         {t.common.processing}
                     </div>
                 </div>
-                <ProcessingState
-                    progress={overallProgress}
+                <ProcessingState 
+                    progress={overallProgress} 
+                    currentIndex={videoQueue.findIndex(item => item.status === 'processing') + 1}
+                    totalFiles={videoQueue.length}
                     {t}
-                    {currentFileName}
+                    radius={120} 
+                    marginTop="20px"
                 />
             </div>
         {:else if status === "success"}
@@ -355,6 +376,8 @@
                 onRemove={removeFile}
                 {formatBytes}
                 {getSavedPercentage}
+                onDownload={downloadSingleFile} 
+                isCompressor={true}
             />
         {/if}
     </div>

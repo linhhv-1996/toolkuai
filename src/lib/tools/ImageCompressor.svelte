@@ -136,10 +136,15 @@
             // Delay and animate from startProgress to 100 over 1.5 seconds
             await finalAnimate(item, startProgress, 1500);
 
+            const outputFileName = item.file.name.replace(/\.[^/.]+$/, `.${effectiveFormat}`);
+            const resultArr = new Uint8Array(compressedBuffer);
+
             item.resultSize = resultSize;
+            item.resultName = outputFileName; // Tên file mới để hiện dòng 2
+            item.resultBlob = new Blob([resultArr]); // Lưu Blob để tải lẻ
             totalSavedBytes += item.file.size - resultSize;
 
-            const outputFileName = item.file.name.replace(/\.[^/.]+$/, `.${effectiveFormat}`);
+            
             zip.file(`toolkuai_${outputFileName}`, new Uint8Array(compressedBuffer));
             item.status = "done";
 
@@ -193,6 +198,19 @@
         }
 
         processNextFile(0);
+    }
+
+    function downloadSingleImage(item: any) {
+        if (!item.resultBlob) return;
+        
+        const url = URL.createObjectURL(item.resultBlob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = item.resultName || item.file.name;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
     }
 
     function reset() {
@@ -346,13 +364,14 @@
                 </div>
                 <ProcessingState 
                     progress={overallProgress} 
-                    {t} 
-                    currentFileName={currentFileName}
+                    currentIndex={imageQueue.findIndex(item => item.status === 'processing') + 1}
+                    totalFiles={imageQueue.length}
+                    {t}
+                    radius={170} 
+                    marginTop="60px"
                 />
 
-                <p class="mono text-center text-[12px] text-slate-400 tracking-widest font-medium" style="margin-top: 25px !important">
-                    {@html t.imageCompressor.tips}
-                </p>
+                
             </div>
         {:else if status === "success"}
             <SuccessState 
@@ -377,6 +396,8 @@
                 onRemove={removeFile} 
                 {formatBytes} 
                 getSavedPercentage={getReducedPercentage} 
+                onDownload={downloadSingleImage} 
+                isCompressor={true}
             />
         {/if}
     </div>

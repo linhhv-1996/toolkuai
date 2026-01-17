@@ -1,146 +1,92 @@
-<!-- ProcessingState.svelte -->
 <script lang="ts">
     import { tweened } from "svelte/motion";
     import { cubicOut } from "svelte/easing";
 
     let {
         progress,
-        currentFileName = "",
-        t
+        currentIndex = 1,
+        totalFiles = 1,
+        t,
+        radius = 110,       // Config bán kính
+        marginTop = "40px"  // Config margin
     }: {
         progress: number;
         t: any;
-        currentFileName?: string;
+        currentIndex?: number;
+        totalFiles?: number;
+        radius?: number;
+        marginTop?: string;
     } = $props();
 
-    const animatedProgress = tweened(0, { duration: 300, easing: cubicOut });
+    const animatedProgress = tweened(0, { duration: 600, easing: cubicOut });
+    $effect(() => { animatedProgress.set(progress); });
 
-    $effect(() => {
-        animatedProgress.set(progress);
-    });
-
-    const radius = 50; // Kích thước vòng tròn
-    const circumference = 2 * Math.PI * radius;
-    const dashoffset = $derived(circumference * (1 - $animatedProgress / 100));
+    // FIX LỖI 66%: Sử dụng top dựa trên 100% chiều cao container
+    // Khi progress = 0 -> top = 100% (nằm dưới đáy)
+    // Khi progress = 100 -> top = 0% (đầy)
+    const waveTop = $derived(100 - $animatedProgress);
 </script>
 
-<section class="space-y-6">
-    <div class="flex flex-col items-center">
-        <svg class="w-40 h-40 animate-glow" viewBox="0 0 120 120">
-            <!-- Giảm kích thước trên mobile -->
-            <defs>
-                <linearGradient
-                    id="progressGradient"
-                    x1="0%"
-                    y1="0%"
-                    x2="100%"
-                    y2="100%"
-                >
-                    <stop
-                        offset="0%"
-                        style="stop-color: #34d399; stop-opacity: 1"
-                    />
-                    <!-- Xanh nhạt -->
-                    <stop
-                        offset="50%"
-                        style="stop-color: #10b981; stop-opacity: 1"
-                    />
-                    <!-- Xanh trung bình -->
-                    <stop
-                        offset="100%"
-                        style="stop-color: #047857; stop-opacity: 1"
-                    />
-                    <!-- Xanh đậm hơn -->
-                </linearGradient>
-                <filter id="glowFilter">
-                    <feGaussianBlur stdDeviation="2.5" result="coloredBlur" />
-                    <feMerge>
-                        <feMergeNode in="coloredBlur" />
-                        <feMergeNode in="SourceGraphic" />
-                    </feMerge>
-                </filter>
-            </defs>
-            <circle
-                class="stroke-current text-gray-200"
-                stroke-width="12"
-                cx="60"
-                cy="60"
-                r={radius}
-                fill="transparent"
-            ></circle>
-            <!-- Tăng stroke-width để dày hơn -->
-            <circle
-                class="stroke-current transition-all duration-300 animate-rotate-slow"
-                stroke-width="12"
-                stroke-dasharray={circumference}
-                stroke-dashoffset={dashoffset}
-                cx="60"
-                cy="60"
-                r={radius}
-                fill="transparent"
-                stroke-linecap="round"
-                style="transform: rotate(-90deg); transform-origin: 50% 50%; stroke: url(#progressGradient); filter: url(#glowFilter);"
-            ></circle>
-            <text
-                x="60"
-                y="60"
-                font-size="26"
-                text-anchor="middle"
-                dominant-baseline="central"
-                class="fill-current text-gray-800 font-extrabold animate-pulse"
-                >{$animatedProgress.toFixed(0)}%</text
+<section class="flex flex-col items-center justify-center w-full" style="margin-top: {marginTop}">
+    <div 
+        class="relative flex items-center justify-center overflow-hidden rounded-full border-4 border-gray-100 bg-gray-50 shadow-inner"
+        style="width: {radius * 2}px; height: {radius * 2}px"
+    >
+        <div 
+            class="absolute left-[-50%] w-[200%] h-[200%] bg-gradient-to-t from-[#059669] to-[#10b981] transition-all duration-500 ease-linear"
+            style="top: {waveTop}%"
+        >
+            <div class="wave opacity-30"></div>
+            <div class="wave opacity-50 animation-delay-2000"></div>
+        </div>
+
+        <div class="relative z-20 flex flex-col items-center pointer-events-none text-gray-800">
+            <div 
+                class="mono font-bold opacity-60 uppercase tracking-widest mb-1"
+                style="font-size: {radius / 8}px"
             >
-        </svg>
-        {#if currentFileName}
-            <div
-                class="mt-4 text-center text-sm md:text-base text-gray-700 font-medium max-w-full md:max-w-md line-clamp-2 break-all"
-            >
-                {t.common.processing}: {currentFileName}
+                {currentIndex} / {totalFiles}
             </div>
-        {/if}
+
+            <div class="flex items-baseline font-black tracking-tighter drop-shadow-sm">
+                <span style="font-size: {radius / 1.8}px">{$animatedProgress.toFixed(0)}</span>
+                <span style="font-size: {radius / 4}px" class="ml-1 opacity-80">%</span>
+            </div>
+
+            <div 
+                class="mono uppercase tracking-[0.2em] font-bold opacity-70 mt-1" 
+                style="font-size: {radius / 12}px"
+            >
+                {t.common.processing}
+            </div>
+        </div>
     </div>
 </section>
 
 <style>
-    svg {
-        filter: drop-shadow(
-            0 4px 12px rgba(16, 185, 129, 0.3)
-        ); /* Shadow xanh mạnh hơn cho glow */
+    .mono { font-family: 'JetBrains Mono', 'Fira Code', monospace; }
+
+    /* Hiệu ứng sóng: Xoay hình vuông bo góc lớn ở đỉnh khối nước */
+    .wave {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: white;
+        border-radius: 38%;
+        top: -92%; /* Đặt ngay mép trên của khối gradient */
+        left: 0;
+        animation: rotate 8s infinite linear;
     }
-    .animate-glow {
-        animation: glow 2s ease-in-out infinite alternate;
-    }
-    @keyframes glow {
-        from {
-            filter: drop-shadow(0 4px 12px rgba(16, 185, 129, 0.2));
-        }
-        to {
-            filter: drop-shadow(0 6px 16px rgba(16, 185, 129, 0.4));
-        }
-    }
-    .animate-rotate-slow {
-        animation: rotate 20s linear infinite; /* Rotate nhẹ để thêm động */
-    }
+
+    .animation-delay-2000 { animation-delay: 2s; }
+
     @keyframes rotate {
-        from {
-            transform: rotate(-90deg);
-        }
-        to {
-            transform: rotate(270deg);
-        }
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
     }
-    .animate-pulse {
-        animation: pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-    }
-    @keyframes pulse {
-        0%,
-        100% {
-            opacity: 1;
-            transform: scale(1);
-        }
-        50% {
-            opacity: 0.8;
-            transform: scale(1.05);
-        }
+
+    /* Đảm bảo text không bị mất màu khi nước dâng (Contrast) */
+    div {
+        text-shadow: 0 1px 2px rgba(255,255,255,0.5);
     }
 </style>

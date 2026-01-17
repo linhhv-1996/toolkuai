@@ -95,9 +95,16 @@
                 }
 
                 const result = new Uint8Array(compressedBuffer);
+
+                const outputFileName = `compressed_${item.file.name}`;
+            
+                item.resultSize = result.length;
+                item.resultName = outputFileName; // Tên hiển thị ở dòng 2 của Panel
+                item.resultBlob = new Blob([result], { type: 'application/pdf' }); // Lưu Blob để tải lẻ
+                
                 item.resultSize = result.length;
                 totalSavedBytes += item.file.size - result.length;
-                zip.file(`compressed_${item.file.name}`, result);
+                zip.file(outputFileName, result);
                 item.status = "done";
                 item.progress = 100;
                 overallProgress = Math.round(((i + 1) / pdfQueue.length) * 100);
@@ -155,6 +162,21 @@
         throw new Error('Compression failed after retries');
     }
 
+
+    function downloadSinglePdf(item: any) {
+        if (!item.resultBlob) return;
+        
+        const url = URL.createObjectURL(item.resultBlob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = item.resultName || `compressed_${item.file.name}`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+    }
+
+
     function reset() {
         pdfQueue = [];
         zipUrl = null;
@@ -202,7 +224,7 @@
 
 <div class="w-full">
     <div class="tool-box relative bg-white rounded-sm border border-gray-200 p-6 space-y-6" 
-         style="height: 340px; overflow: hidden; box-sizing: border-box; width: 100%;">
+         style="height: 350px; overflow: hidden; box-sizing: border-box; width: 100%;">
         {#if status === "idle"}
             <div class="space-y-6">
                 <Dropzone onFilesSelected={handleFiles} accept="application/pdf" {t} />
@@ -278,8 +300,11 @@
                 </div>
                 <ProcessingState 
                     progress={overallProgress} 
-                    {t} 
-                    currentFileName={currentFileName}
+                    currentIndex={pdfQueue.findIndex(item => item.status === 'processing') + 1}
+                    totalFiles={pdfQueue.length}
+                    {t}
+                    radius={120} 
+                    marginTop="20px"
                 />
             </div>
         {:else if status === "success"}
@@ -302,6 +327,8 @@
                 onRemove={removeFile} 
                 {formatBytes} 
                 {getSavedPercentage} 
+                onDownload={downloadSinglePdf} 
+                isCompressor={true}
             />
         {/if}
     </div>
