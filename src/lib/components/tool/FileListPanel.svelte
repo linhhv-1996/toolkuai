@@ -26,7 +26,7 @@
 </script>
 
 <div class="absolute inset-0 bg-white z-20 flex flex-col h-full border border-gray-300 rounded-sm shadow-lg overflow-hidden" style="margin-top: 0;">
-    <div class="flex justify-between items-center px-6 pt-6 mb-4">
+    <div class="flex justify-between items-center px-4 pt-6 mb-4">
         <h3 class="mono text-[11px] text-gray-500 uppercase tracking-widest font-bold">
             {status === "success" ? t.common.processedFiles : t.common.selectedFiles}
         </h3>
@@ -35,7 +35,7 @@
         </button>
     </div>
 
-    <div class="flex-grow overflow-auto px-6 pb-6">
+    <div class="flex-grow overflow-auto px-4 pb-6">
         <ul class="space-y-2">
             {#each fileQueue as item, i}
                 <li class="flex items-center justify-between py-3 px-4 bg-gray-50 rounded-sm border border-gray-100 hover:border-gray-300 transition-all">

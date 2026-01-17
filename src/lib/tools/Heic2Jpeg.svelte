@@ -4,7 +4,7 @@
     import { toolUi } from "$lib/data/toolUi";
     import { siteConfig, type SupportedLang } from "$lib/data/siteConfig";
     import JSZip from "jszip";
-    import { heicTo } from 'heic-to';
+    import { heicTo } from "heic-to";
     // Components
     import Dropzone from "$lib/components/tool/Dropzone.svelte";
     import ProcessingState from "$lib/components/tool/ProcessingState.svelte";
@@ -86,16 +86,19 @@
                 // Convert HEIC to Blob
                 const convertedBlob = await heicTo({
                     blob: item.file,
-                    type: outputFormat === 'jpg' ? 'image/jpeg' : 'image/png',
-                    quality: quality / 100
+                    type: outputFormat === "jpg" ? "image/jpeg" : "image/png",
+                    quality: quality / 100,
                 });
 
                 // Stop animation and set to 100%
                 clearInterval(animationInterval);
                 item.progress = 100;
 
-                const outputFileName = item.file.name.replace(/\.[^/.]+$/, `.${outputFormat}`);
-            
+                const outputFileName = item.file.name.replace(
+                    /\.[^/.]+$/,
+                    `.${outputFormat}`,
+                );
+
                 item.resultSize = convertedBlob.size;
                 item.resultBlob = convertedBlob; // Lưu Blob để download lẻ
                 item.resultName = outputFileName; // Lưu tên mới để hiển thị Panel
@@ -116,7 +119,7 @@
             const durationMs = endTime - startTime;
             const minutes = Math.floor(durationMs / 60000);
             const seconds = Math.floor((durationMs % 60000) / 1000);
-            processingTime = `${minutes} minute${minutes !== 1 ? 's' : ''} ${seconds} second${seconds !== 1 ? 's' : ''}`;
+            processingTime = `${minutes} minute${minutes !== 1 ? "s" : ""} ${seconds} second${seconds !== 1 ? "s" : ""}`;
 
             status = "success";
         } catch (e) {
@@ -134,7 +137,7 @@
 
     function downloadSingleFile(item: any) {
         if (!item.resultBlob) return;
-        
+
         const url = URL.createObjectURL(item.resultBlob);
         const a = document.createElement("a");
         a.href = url;
@@ -147,34 +150,42 @@
 
     // Derived totals
     const totalOriginalBytes = $derived(
-        heicQueue.reduce((sum, item) => sum + (item.file?.size || 0), 0)
+        heicQueue.reduce((sum, item) => sum + (item.file?.size || 0), 0),
     );
+    
     const totalSelectedSize = $derived(
-        (totalOriginalBytes / 1024 / 1024).toFixed(1)
+        (totalOriginalBytes / 1024 / 1024).toFixed(1),
     );
 
     // Derived overall progress
     const overallProgress = $derived(
-        Math.round(heicQueue.reduce((sum, item) => sum + (item.progress || 0), 0) / heicQueue.length)
+        Math.round(
+            heicQueue.reduce((sum, item) => sum + (item.progress || 0), 0) /
+                heicQueue.length,
+        ),
     );
 
     // New: customInfo for SuccessState
     let suffix = $derived(heicQueue.length > 1 ? "files" : "file");
 
     const customInfo = $derived(
-        `Converted <b>${heicQueue.length} ${suffix}</b> to <span class="font-bold">${outputFormat.toUpperCase()}</span>`
+        `Converted <b>${heicQueue.length} ${suffix}</b> to <span class="font-bold">${outputFormat.toUpperCase()}</span>`,
     );
 
     function formatBytes(bytes: number) {
         if (bytes === 0) return "0 B";
         const k = 1024;
         const i = Math.floor(Math.log(bytes) / Math.log(k));
-        return parseFloat((bytes / Math.pow(k, i)).toFixed(1)) + " " + ["B", "KB", "MB", "GB"][i];
+        return (
+            parseFloat((bytes / Math.pow(k, i)).toFixed(1)) +
+            " " +
+            ["B", "KB", "MB", "GB"][i]
+        );
     }
 
     function getReducedPercentage(original: number, result: number) {
         if (original === 0) return "0";
-        return ((original - result) / original * 100).toFixed(1);
+        return (((original - result) / original) * 100).toFixed(1);
     }
 
     function removeFile(i: number) {
@@ -187,128 +198,229 @@
 </script>
 
 <div class="w-full">
-    <div class="tool-box relative bg-white rounded-sm border border-gray-200 p-6 space-y-6" 
-         style="height: 430px; overflow: hidden; box-sizing: border-box; width: 100%;">
+    <div
+        class="tool-box relative bg-white rounded-sm border border-gray-200 p-4 space-y-6"
+        style="height: 413px; overflow: hidden; box-sizing: border-box; width: 100%;"
+    >
         {#if status === "idle"}
             <div class="space-y-6">
-                <Dropzone onFilesSelected={handleFiles} accept=".heic,.HEIC" {t} />
+                <Dropzone
+                    onFilesSelected={handleFiles}
+                    accept=".heic,.HEIC"
+                    {t}
+                />
                 <section id="conversionOptions" class="space-y-4">
-                    <div class="mono text-[11px] text-gray-500 mb-2 uppercase tracking-widest font-bold">
+                    <div
+                        class="mono text-[11px] text-gray-500 mb-2 uppercase tracking-widest font-bold"
+                    >
                         {t.common.options}
                     </div>
                     <div class="flex flex-col space-y-2">
                         <!-- svelte-ignore a11y_label_has_associated_control -->
-                        <label class="mono text-[11px] text-gray-500 uppercase font-bold">{t.common.format}</label>
-                        <select bind:value={outputFormat} class="mono text-[13px] px-4 py-2 border border-gray-300 focus:outline-none focus:border-gray-500 rounded-sm bg-white" id="outputFormat">
-                            <option class="mono text-[13px]" value="png">PNG</option>
-                            <option class="mono text-[13px]" value="jpg">JPG</option>
+                        <label
+                            class="mono text-[11px] text-gray-500 uppercase font-bold"
+                            >{t.common.format}</label
+                        >
+                        <select
+                            bind:value={outputFormat}
+                            class="mono text-[13px] px-4 py-2 border border-gray-300 focus:outline-none focus:border-gray-500 rounded-sm bg-white"
+                            id="outputFormat"
+                        >
+                            <option class="mono text-[13px]" value="png"
+                                >PNG</option
+                            >
+                            <option class="mono text-[13px]" value="jpg"
+                                >JPG</option
+                            >
                         </select>
                     </div>
                     <div class="flex flex-col space-y-2">
                         <!-- svelte-ignore a11y_label_has_associated_control -->
-                        <label class="mono text-[11px] text-gray-500 uppercase font-bold">{t.common.quality}</label>
-                        <input type="range" bind:value={quality} min="10" max="100" step="10" class="w-full accent-red-600" />
+                        <label
+                            class="mono text-[11px] text-gray-500 uppercase font-bold"
+                            >{t.common.quality}</label
+                        >
+                        <input
+                            type="range"
+                            bind:value={quality}
+                            min="10"
+                            max="100"
+                            step="10"
+                            class="w-full accent-red-600"
+                        />
                         <span class="text-sm text-gray-600">{quality}%</span>
                     </div>
                 </section>
             </div>
         {:else if status === "selected"}
-            <div class="space-y-6">
-                <div class="space-y-2">
-                    <div class="flex flex-col gap-2 mb-6">
-                        <div class="mono text-[11px] text-gray-500 uppercase tracking-widest font-bold">
-                            {t.common.selectedFiles}
+            <div class="flex flex-col h-full w-full overflow-hidden">
+                <div
+                    class="flex-grow overflow-y-auto min-h-0 space-y-6 scrollbar-hide"
+                >
+                    <div class="space-y-2">
+                        <div class="flex flex-col gap-2 mb-4">
+                            <div
+                                class="mono text-[11px] text-gray-500 uppercase tracking-widest font-bold"
+                            >
+                                {t.common.selectedFiles}
+                            </div>
+                            <div class="flex space-x-2">
+                                <button
+                                    onclick={addMoreFiles}
+                                    class="flex items-center border border-[#10b981] text-[#10b981] mono text-[11px] px-3 py-1 rounded-sm hover:bg-green-50 transition font-bold uppercase tracking-wider"
+                                >
+                                    <Plus class="w-4 h-4 mr-1" />{t.common
+                                        .addMore}
+                                </button>
+                                <button
+                                    onclick={clearFiles}
+                                    class="flex items-center border border-gray-300 text-gray-600 mono text-[11px] px-3 py-1 rounded-sm hover:bg-gray-50 transition font-bold uppercase tracking-wider"
+                                >
+                                    <Trash2 class="w-4 h-4 mr-1" />{t.common
+                                        .clear}
+                                </button>
+                            </div>
                         </div>
-                        <div class="flex space-x-2">
-                            <button onclick={addMoreFiles} class="flex items-center border border-[#10b981] text-[#10b981] mono text-[11px] px-3 py-1 rounded-sm hover:bg-green-50 transition font-bold uppercase tracking-wider">
-                                <Plus class="w-4 h-4 mr-1" />{t.common.addMore}
-                            </button>
-                            <button onclick={clearFiles} class="flex items-center border border-gray-300 text-gray-600 mono text-[11px] px-3 py-1 rounded-sm hover:bg-gray-50 transition font-bold uppercase tracking-wider">
-                                <Trash2 class="w-4 h-4 mr-1" />{t.common.clear}
-                            </button>
-                        </div>
+                        <p class="text-sm text-gray-800 leading-relaxed">
+                            {t.common.youHaveSelected}
+                            <b
+                                >{heicQueue.length}
+                                {heicQueue.length === 1
+                                    ? t.common.fileSelected
+                                    : t.common.filesSelected}</b
+                            >
+                            {t.common.totaling} <b>{totalSelectedSize} MB</b>.
+                            <a
+                                href="#"
+                                onclick={(e) => {
+                                    e.preventDefault();
+                                    showFilePanel = true;
+                                }}
+                                class="text-[#10b981] hover:underline font-medium"
+                                >{t.common.viewDetail}</a
+                            >
+                        </p>
                     </div>
-                    <p class="text-sm text-gray-800">
-                        {t.common.youHaveSelected} <b>{heicQueue.length} {heicQueue.length === 1 ? t.common.fileSelected : t.common.filesSelected}</b> {t.common.totaling} <b>{totalSelectedSize} MB</b>. 
-                        <!-- svelte-ignore a11y_invalid_attribute -->
-                        <a href="#" onclick={(e) => { e.preventDefault(); showFilePanel = true; }} class="text-[#10b981] hover:underline font-medium">{t.common.viewDetail}</a>
-                    </p>
+
+                    <section id="conversionOptions" class="space-y-4">
+                        <div
+                            class="mono text-[11px] text-gray-500 mb-2 uppercase tracking-widest font-bold"
+                        >
+                            {t.common.options}
+                        </div>
+                        <div class="flex flex-col space-y-2">
+                            <label
+                                class="mono text-[11px] text-gray-500 uppercase font-bold"
+                                >{t.common.format}</label
+                            >
+                            <select
+                                bind:value={outputFormat}
+                                class="mono text-[13px] px-4 py-2 border border-gray-300 focus:outline-none focus:border-gray-500 rounded-sm bg-white"
+                                id="outputFormat"
+                            >
+                                <option class="mono text-[13px]" value="png"
+                                    >PNG</option
+                                >
+                                <option class="mono text-[13px]" value="jpg"
+                                    >JPG</option
+                                >
+                            </select>
+                        </div>
+                        <div class="flex flex-col space-y-2">
+                            <label
+                                class="mono text-[11px] text-gray-500 uppercase font-bold"
+                                >{t.common.quality}</label
+                            >
+                            <input
+                                type="range"
+                                bind:value={quality}
+                                min="10"
+                                max="100"
+                                step="10"
+                                class="w-full accent-red-600"
+                            />
+                            <span class="text-sm text-gray-600">{quality}%</span
+                            >
+                        </div>
+                    </section>
                 </div>
-                <section id="conversionOptions" class="space-y-4">
-                    <div class="mono text-[11px] text-gray-500 mb-2 uppercase tracking-widest font-bold">
-                        {t.common.options}
-                    </div>
-                    <div class="flex flex-col space-y-2">
-                        <!-- svelte-ignore a11y_label_has_associated_control -->
-                        <label class="mono text-[11px] text-gray-500 uppercase font-bold">{t.common.format}</label>
-                        <select bind:value={outputFormat} class="mono text-[13px] px-4 py-2 border border-gray-300 focus:outline-none focus:border-gray-500 rounded-sm bg-white" id="outputFormat">
-                            <option class="mono text-[13px]" value="png">PNG</option>
-                            <option class="mono text-[13px]" value="jpg">JPG</option>
-                        </select>
-                    </div>
-                    <div class="flex flex-col space-y-2">
-                        <!-- svelte-ignore a11y_label_has_associated_control -->
-                        <label class="mono text-[11px] text-gray-500 uppercase font-bold">{t.common.quality}</label>
-                        <input type="range" bind:value={quality} min="10" max="100" step="10" class="w-full accent-red-600" />
-                        <span class="text-sm text-gray-600">{quality}%</span>
-                    </div>
-                </section>
-                <input 
-                    type="file" 
-                    accept=".heic,.HEIC,.heif,.HEIF" 
-                    multiple 
-                    bind:this={fileInput} 
-                    class="hidden" 
-                    onchange={(e) => handleFiles(Array.from(e.currentTarget.files || []))} 
-                />
-                <button onclick={startConversion} disabled={heicQueue.length === 0} class="w-full bg-[#10b981] text-white mono text-[13px] py-3 rounded-sm hover:bg-green-700 transition disabled:opacity-50 font-bold uppercase tracking-wider">
-                    {t.heic2jpg.startConvert}
-                </button>
+
+                <div
+                    class="flex-shrink-0 pt-4 pb-1 bg-white border-t border-gray-50"
+                >
+                    <input
+                        type="file"
+                        accept=".heic,.HEIC,.heif,.HEIF"
+                        multiple
+                        bind:this={fileInput}
+                        class="hidden"
+                        onchange={(e) =>
+                            handleFiles(
+                                Array.from(e.currentTarget.files || []),
+                            )}
+                    />
+                    <button
+                        onclick={startConversion}
+                        disabled={heicQueue.length === 0}
+                        class="w-full bg-[#10b981] text-white mono text-[13px] py-3 rounded-sm hover:bg-green-700 transition disabled:opacity-50 font-bold uppercase tracking-wider"
+                    >
+                        {t.heic2jpg.startConvert}
+                    </button>
+                </div>
             </div>
         {:else if status === "processing"}
-            <div class="space-y-6">
-                <div class="space-y-2">
-                    <div class="mono text-[11px] text-gray-500 uppercase tracking-widest font-bold">
+            <div class="space-y-6 h-full">
+                <!-- <div class="space-y-2">
+                    <div
+                        class="mono text-[11px] text-gray-500 uppercase tracking-widest font-bold"
+                    >
                         {t.common.processing}
                     </div>
-                </div>
-                <ProcessingState 
-                    progress={overallProgress} 
-                    currentIndex={heicQueue.findIndex(item => item.status === 'processing') + 1}
+                </div> -->
+                <ProcessingState
+                    progress={overallProgress}
+                    currentIndex={heicQueue.findIndex(
+                        (item) => item.status === "processing",
+                    ) + 1}
                     totalFiles={heicQueue.length}
                     {t}
-                    radius={150} 
-                    marginTop="40px"
+                   {currentFileName}
                 />
-
-        
             </div>
         {:else if status === "success"}
-            <SuccessState 
-                {processingTime} 
-                {customInfo} 
-                {zipUrl} 
-                onReset={reset} 
-                {t} 
-                onViewFiles={viewFiles} 
+            <SuccessState
+                {processingTime}
+                {customInfo}
+                {zipUrl}
+                onReset={reset}
+                {t}
+                onViewFiles={viewFiles}
+                headerPy={"py-12"}
             />
-            <p class="mono text-center text-[12px] text-slate-400 tracking-widest font-medium" style="margin-top: 5px !important">
-                {@html t.heic2jpg.tips}
-            </p>
         {/if}
 
         {#if showFilePanel}
-            <FileListPanel 
-                fileQueue={heicQueue} 
-                {status} 
-                {t} 
-                onClose={() => showFilePanel = false} 
-                onRemove={removeFile} 
-                {formatBytes} 
-                getSavedPercentage={getReducedPercentage} 
-                onDownload={downloadSingleFile} 
+            <FileListPanel
+                fileQueue={heicQueue}
+                {status}
+                {t}
+                onClose={() => (showFilePanel = false)}
+                onRemove={removeFile}
+                {formatBytes}
+                getSavedPercentage={getReducedPercentage}
+                onDownload={downloadSingleFile}
                 isCompressor={false}
             />
         {/if}
     </div>
 </div>
+
+<style>
+    .scrollbar-hide::-webkit-scrollbar {
+        display: none;
+    }
+    .scrollbar-hide {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+</style>

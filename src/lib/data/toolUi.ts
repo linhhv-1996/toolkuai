@@ -46,6 +46,9 @@ export const toolUi = {
       quality: "Quality",
       processedFiles: "Processed Files",
       savedPercent: "({percent}% saved)",
+      processLocaly: "Processed locally for privacy.",
+      processingData: "Processing data...",
+      files: "Files",
     },
     videoCompress: {
       title: "Video Compressor",
@@ -124,6 +127,9 @@ export const toolUi = {
       quality: "Quality",
       processedFiles: "Processed Files",
       savedPercent: "({percent}% saved)",
+      processLocaly: "Processed locally for privacy.",
+      processingData: "Processing data...",
+      files: "Files",
     },
     videoCompress: {
       title: "影片壓縮",
