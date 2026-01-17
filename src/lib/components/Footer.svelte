@@ -24,11 +24,11 @@
 
       <div class="flex space-x-6 text-[11px] font-bold uppercase tracking-widest">
         <a href="{langPath}/privacy" class="text-gray-500 hover:text-[#10b981] transition-colors">
-          Privacy
+          {t.privacy}
         </a>
 
         <a href="{langPath}/term" class="text-gray-500 hover:text-[#10b981] transition-colors">
-          Term
+          {t.term}
         </a>
       </div>
     </div>

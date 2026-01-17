@@ -152,10 +152,8 @@
     const totalOriginalBytes = $derived(
         heicQueue.reduce((sum, item) => sum + (item.file?.size || 0), 0),
     );
-    
-    const totalSelectedSize = $derived(
-        (totalOriginalBytes / 1024 / 1024).toFixed(1),
-    );
+
+    const totalSelectedSize = $derived(formatBytes(totalOriginalBytes));
 
     // Derived overall progress
     const overallProgress = $derived(
@@ -289,7 +287,7 @@
                                     ? t.common.fileSelected
                                     : t.common.filesSelected}</b
                             >
-                            {t.common.totaling} <b>{totalSelectedSize} MB</b>.
+                            {t.common.totaling} <b>{totalSelectedSize}</b>.
                             <a
                                 href="#"
                                 onclick={(e) => {

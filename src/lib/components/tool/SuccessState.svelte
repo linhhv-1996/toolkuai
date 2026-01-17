@@ -64,15 +64,16 @@
         {/if}
 
         <div class="space-y-2">
+            <button onclick={onReset} class="block w-full border border-[#10b981] text-[#10b981] mono text-[13px] py-2.5 rounded-sm hover:bg-green-50 transition font-bold uppercase tracking-wider">
+                {t.common.newTask}
+            </button>
+
             {#if zipUrl}
                 <a href={zipUrl} download="toolkuai_files.zip" class="block w-full bg-[#10b981] text-white mono text-[13px] py-3 rounded-sm hover:bg-green-700 transition flex items-center justify-center space-x-1.5 font-bold uppercase tracking-wider">
                     <FileDown class="w-3.5 h-3.5" />
                     <span>{t.common.downloadAll}</span>
                 </a>
             {/if}
-            <button onclick={onReset} class="block w-full border border-[#10b981] text-[#10b981] mono text-[13px] py-2.5 rounded-sm hover:bg-green-50 transition font-bold uppercase tracking-wider">
-                {t.common.newTask}
-            </button>
         </div>
     </div>
 </section>

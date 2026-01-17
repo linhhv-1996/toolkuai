@@ -189,9 +189,9 @@
     const totalOriginalBytes = $derived(
         pdfQueue.reduce((sum, item) => sum + (item.file?.size || 0), 0)
     );
-    const totalSelectedSize = $derived(
-        (totalOriginalBytes / 1024 / 1024).toFixed(1)
-    );
+    
+    const totalSelectedSize = $derived(formatBytes(totalOriginalBytes));
+    
     const totalSavedMB = $derived((totalSavedBytes / 1024 / 1024).toFixed(1));
     const savedPercentage = $derived(
         totalOriginalBytes > 0 ? ((totalSavedBytes / totalOriginalBytes) * 100).toFixed(1) : "0"
@@ -262,7 +262,7 @@
                             </div>
                         </div>
                         <p class="text-sm text-gray-800 leading-relaxed">
-                            {t.common.youHaveSelected} <b>{pdfQueue.length} {pdfQueue.length === 1 ? t.common.fileSelected : t.common.filesSelected}</b> {t.common.totaling} <b>{totalSelectedSize} MB</b>. 
+                            {t.common.youHaveSelected} <b>{pdfQueue.length} {pdfQueue.length === 1 ? t.common.fileSelected : t.common.filesSelected}</b> {t.common.totaling} <b>{totalSelectedSize}</b>. 
                             <a href="#" onclick={(e) => { e.preventDefault(); showFilePanel = true; }} class="text-[#10b981] hover:underline font-medium">{t.common.viewDetail}</a>
                         </p>
                     </div>

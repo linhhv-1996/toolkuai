@@ -9,6 +9,7 @@
     import RelatedTools from "$lib/components/RelatedTools.svelte";
     import { ui } from "$lib/data/ui.js";
     import { ChevronLeft } from "lucide-svelte";
+    import { toolUi } from "$lib/data/toolUi.js";
 
     let { data } = $props();
     const { tool, lang, metadata } = $derived(data);
@@ -17,7 +18,7 @@
         lang === siteConfig.defaultLang ? "/" : `/${lang.toLowerCase()}`,
     );
 
-    const t = $derived(ui[lang]?.common || { backToTools: "Back to Tools" });
+    const t = $derived(toolUi[lang]?.common);
 
     const toolComponents: Record<string, any> = {
         "video-compressor": VideoCompressor,
