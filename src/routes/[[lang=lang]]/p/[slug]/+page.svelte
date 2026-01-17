@@ -1,6 +1,7 @@
 <script lang="ts">
     import RelatedTools from "$lib/components/RelatedTools.svelte";
     import BlogSidebar from "$lib/components/BlogSidebar.svelte";
+    import { toolUi } from "$lib/data/toolUi.js";
 
     let { data } = $props();
     const { slug, lang } = $derived(data);
@@ -14,6 +15,7 @@
             return null;
         }
     });
+    let t = toolUi[lang];
 </script>
 
 <svelte:head>
@@ -37,7 +39,7 @@
                             <MarkdownComponent />
                         </div>
                     {:else}
-                        <p class="text-gray-400">Content updating...</p>
+                        <p class="text-gray-400">{t.common.updatingContent}</p>
                     {/if}
                 {/await}
             </article>

@@ -101,7 +101,7 @@
                             <MarkdownComponent />
                         </div>
                     {:else}
-                        <p class="text-gray-400">Content updating...</p>
+                        <p class="text-gray-400">{t.updatingContent}</p>
                     {/if}
                 {/await}
             </article>

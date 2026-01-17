@@ -58,6 +58,7 @@ export const toolUi = {
       unitFiles: "files",
       compressedTo: "Compressed <b>{count} {unit}</b> to <span class=\"font-bold\">{format}</span>",
       convertedTo: "Converted <b>{count} {unit}</b> to <span class=\"font-bold\">{format}</span>",
+      updatingContent: "Content updating...",
     },
     videoCompress: {
       title: "Video Compressor",
@@ -148,6 +149,7 @@ export const toolUi = {
       unitFiles: "個檔案",
       compressedTo: "已將 <b>{count} {unit}</b> 壓縮為 <span class=\"font-bold\">{format}</span>",
       convertedTo: "已將 <b>{count} {unit}</b> 轉換為 <span class=\"font-bold\">{format}</span>",
+      updatingContent: "Content updating...",
     },
     videoCompress: {
       title: "影片壓縮",
