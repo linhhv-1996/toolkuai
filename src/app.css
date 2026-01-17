@@ -90,7 +90,7 @@ a {
     @apply font-medium;
     margin-top: 0.5rem !important;
     margin-bottom: 0.75rem !important;
-    line-height: 1.5 !important;
+    /* line-height: 1.5 !important; */
   }
 
   /* Danh sách (Lists) */
@@ -123,4 +123,3 @@ a {
     @apply text-[#10b981] bg-slate-50 px-1.5 py-0.5 rounded text-[13px] font-medium;
   }
 }
-

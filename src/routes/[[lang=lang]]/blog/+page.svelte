@@ -27,7 +27,7 @@
   </p>
 </header>
 
-<main class="max-w-[972px] mx-auto px-6 mb-20 flex flex-col md:flex-row gap-10">
+<main class="max-w-[972px] mx-auto px-6 mb-20 flex flex-col md:flex-row gap-6">
   <div class="w-full md:w-[600px] space-y-10">
     <section>
       <div class="text-[11px] font-bold text-slate-400 mb-3 uppercase tracking-[0.2em] ml-1">
@@ -58,7 +58,7 @@
                 </p>
 
                 <div class="text-[13px] font-bold text-slate-900 flex items-center gap-1 group-hover:gap-2 transition-all">
-                  Read Article <span class="text-[#10b981]">→</span>
+                  {t.blog.readArticle} <span class="text-[#10b981]">→</span>
                 </div>
               </a>
             </article>

@@ -97,7 +97,7 @@
                     ></div>
                 {:then MarkdownComponent}
                     {#if MarkdownComponent}
-                        <div class="prose prose-sm max-w-none">
+                        <div class="prose prose-sm max-w-none blog-content">
                             <MarkdownComponent />
                         </div>
                     {:else}

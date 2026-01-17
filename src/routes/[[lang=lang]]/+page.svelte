@@ -61,7 +61,7 @@
   >
     {t.hero.h2}
     <a
-      href="{langPath}/how-it-works"
+      href="{langPath}/p/how-it-works"
       class="text-slate-900 font-bold hover:text-[#10b981] transition-colors ml-1 underline decoration-gray-200 underline-offset-4"
     >
       {t.hero.howItWorks}

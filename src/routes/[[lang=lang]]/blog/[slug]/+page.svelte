@@ -22,7 +22,7 @@
     <a href="{langPath}/blog" class="hover:text-[#10b981] transition-colors">{t.nav.blog}</a>
   </nav>
 
-  <div class="flex flex-col md:flex-row gap-10">
+  <div class="flex flex-col md:flex-row gap-6">
     <div class="w-full md:w-[600px]">
       <header class="mb-10">
         <div class="text-[11px] font-bold text-[#10b981] uppercase tracking-[0.2em] mb-3">

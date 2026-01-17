@@ -15,7 +15,8 @@ export const ui: Record<SupportedLang, any> = {
             recent: 'Recent Blog Posts',
             viewAll: 'View All Posts →',
             noPosts: 'No posts found.',
-            loading: 'Loading posts...'
+            loading: 'Loading posts...',
+            readArticle: 'Read Article',
         },
         footer: { builtFor: "Built for Privacy", privacy: "Privacy Policy", term: "Terms", contact: "Contact" }
     },
@@ -35,7 +36,8 @@ export const ui: Record<SupportedLang, any> = {
             recent: '最新文章',
             viewAll: '查看所有文章 →',
             noPosts: '目前尚無文章。',
-            loading: '載入中...'
+            loading: '載入中...',
+            readArticle: 'Read Article',
         },
         footer: {
             builtFor: "專為隱私打造",
