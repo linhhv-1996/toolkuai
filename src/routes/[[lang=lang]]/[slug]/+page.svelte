@@ -109,7 +109,7 @@
 
         <aside class="w-[300px] flex-shrink-0">
             <div class="sticky top-4 space-y-8">
-                <RelatedTools {lang} />
+                <RelatedTools {lang} num={5}/>
                 <br />
                 <BlogSidebar {lang} />
             </div>
