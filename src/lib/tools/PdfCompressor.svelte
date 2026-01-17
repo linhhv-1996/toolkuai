@@ -116,7 +116,13 @@
             const durationMs = endTime - startTime;
             const minutes = Math.floor(durationMs / 60000);
             const seconds = Math.floor((durationMs % 60000) / 1000);
-            processingTime = `${minutes} minute${minutes !== 1 ? 's' : ''} ${seconds} second${seconds !== 1 ? 's' : ''}`;
+
+            // processingTime = `${minutes} minute${minutes !== 1 ? 's' : ''} ${seconds} second${seconds !== 1 ? 's' : ''}`;
+            processingTime = t.common.timeResult
+            .replace('{m}', minutes.toString())
+            .replace('{mUnit}', minutes !== 1 ? t.common.minutes : t.common.minute)
+            .replace('{s}', seconds.toString())
+            .replace('{sUnit}', seconds !== 1 ? t.common.seconds : t.common.second);
 
             status = "success";
         } catch (e) {
@@ -192,13 +198,14 @@
     
     const totalSelectedSize = $derived(formatBytes(totalOriginalBytes));
     
-    const totalSavedMB = $derived((totalSavedBytes / 1024 / 1024).toFixed(1));
+    const totalSavedMB = $derived(formatBytes(totalSavedBytes))
+
     const savedPercentage = $derived(
         totalOriginalBytes > 0 ? ((totalSavedBytes / totalOriginalBytes) * 100).toFixed(1) : "0"
     );
 
     const customInfo = $derived(
-        `Saved <span class="font-bold">${savedPercentage}%</span> (${totalSavedMB} MB)`
+        `${t.common.saved} <span class="font-bold">${savedPercentage}%</span> (${totalSavedMB})`
     );
 
     function formatBytes(bytes: number) {
@@ -298,11 +305,6 @@
             </div>
         {:else if status === "processing"}
             <div class="space-y-6 h-full">
-                <!-- <div class="space-y-2">
-                    <div class="mono text-[11px] text-gray-500 uppercase tracking-widest font-bold">
-                        {t.common.processing}
-                    </div>
-                </div> -->
                 <ProcessingState 
                     progress={overallProgress} 
                     currentIndex={pdfQueue.findIndex(item => item.status === 'processing') + 1}

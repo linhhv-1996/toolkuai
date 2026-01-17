@@ -159,7 +159,12 @@
                 const durationMs = endTime - startTime;
                 const minutes = Math.floor(durationMs / 60000);
                 const seconds = Math.floor((durationMs % 60000) / 1000);
-                processingTime = `${minutes} minute${minutes !== 1 ? 's' : ''} ${seconds} second${seconds !== 1 ? 's' : ''}`;
+
+                processingTime = t.common.timeResult
+                .replace('{m}', minutes.toString())
+                .replace('{mUnit}', minutes !== 1 ? t.common.minutes : t.common.minute)
+                .replace('{s}', seconds.toString())
+                .replace('{sUnit}', seconds !== 1 ? t.common.seconds : t.common.second);
 
                 status = "success";
                 worker.terminate();
@@ -233,10 +238,21 @@
     );
 
     // New: customInfo for SuccessState
-    let suffix = $derived(imageQueue.length > 1 ? "files" : "file");
+    const unit = $derived(imageQueue.length > 1 ? t.common.unitFiles : t.common.unitFile);
 
+    // Xác định tên định dạng hiển thị
+    const formatDisplay = $derived(
+        outputFormat.toLowerCase() === 'original' 
+            ? t.imageCompressor.keepOriginal 
+            : outputFormat.toUpperCase()
+    );
+
+    // Render câu thông báo hoàn chỉnh từ template
     const customInfo = $derived(
-        `Compressed <b>${imageQueue.length} ${suffix}</b> to <span class="font-bold">${outputFormat.toUpperCase() === 'ORIGINAL' ? 'Original Format' : outputFormat.toUpperCase()}</span>`
+        t.common.compressedTo
+            .replace('{count}', imageQueue.length.toString())
+            .replace('{unit}', unit)
+            .replace('{format}', formatDisplay)
     );
 
     function formatBytes(bytes: number) {

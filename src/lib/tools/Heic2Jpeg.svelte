@@ -119,7 +119,12 @@
             const durationMs = endTime - startTime;
             const minutes = Math.floor(durationMs / 60000);
             const seconds = Math.floor((durationMs % 60000) / 1000);
-            processingTime = `${minutes} minute${minutes !== 1 ? "s" : ""} ${seconds} second${seconds !== 1 ? "s" : ""}`;
+            
+            processingTime = t.common.timeResult
+            .replace('{m}', minutes.toString())
+            .replace('{mUnit}', minutes !== 1 ? t.common.minutes : t.common.minute)
+            .replace('{s}', seconds.toString())
+            .replace('{sUnit}', seconds !== 1 ? t.common.seconds : t.common.second);
 
             status = "success";
         } catch (e) {
@@ -164,10 +169,14 @@
     );
 
     // New: customInfo for SuccessState
-    let suffix = $derived(heicQueue.length > 1 ? "files" : "file");
+    const unit = $derived(heicQueue.length > 1 ? t.common.unitFiles : t.common.unitFile);
 
+    // 2. Render câu thông báo từ template trong toolUi
     const customInfo = $derived(
-        `Converted <b>${heicQueue.length} ${suffix}</b> to <span class="font-bold">${outputFormat.toUpperCase()}</span>`,
+        t.common.convertedTo
+            .replace('{count}', heicQueue.length.toString())
+            .replace('{unit}', unit)
+            .replace('{format}', outputFormat.toUpperCase())
     );
 
     function formatBytes(bytes: number) {
