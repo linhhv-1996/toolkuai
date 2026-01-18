@@ -11,6 +11,7 @@
     import SuccessState from "$lib/components/tool/SuccessState.svelte";
     import FileListPanel from "$lib/components/tool/FileListPanel.svelte";
     import { Plus, Trash2 } from "lucide-svelte";
+    import { downloadSingleFile, formatBytes } from "$lib/utils";
 
     const currentLang = $derived(
         (siteConfig.languages.find(
@@ -140,19 +141,6 @@
         processingTime = "";
     }
 
-    function downloadSingleFile(item: any) {
-        if (!item.resultBlob) return;
-
-        const url = URL.createObjectURL(item.resultBlob);
-        const a = document.createElement("a");
-        a.href = url;
-        a.download = item.resultName || "download";
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        URL.revokeObjectURL(url);
-    }
-
     // Derived totals
     const totalOriginalBytes = $derived(
         heicQueue.reduce((sum, item) => sum + (item.file?.size || 0), 0),
@@ -179,17 +167,6 @@
             .replace('{format}', outputFormat.toUpperCase())
     );
 
-    function formatBytes(bytes: number) {
-        if (bytes === 0) return "0 B";
-        const k = 1024;
-        const i = Math.floor(Math.log(bytes) / Math.log(k));
-        return (
-            parseFloat((bytes / Math.pow(k, i)).toFixed(1)) +
-            " " +
-            ["B", "KB", "MB", "GB"][i]
-        );
-    }
-
     function getReducedPercentage(original: number, result: number) {
         if (original === 0) return "0";
         return (((original - result) / original) * 100).toFixed(1);
@@ -207,7 +184,7 @@
 <div class="w-full">
     <div
         class="tool-box relative bg-white rounded-sm border border-gray-200 p-4 space-y-6"
-        style="height: 413px; overflow: hidden; box-sizing: border-box; width: 100%;"
+        style="height: 406px; overflow: hidden; box-sizing: border-box; width: 100%;"
     >
         {#if status === "idle"}
             <div class="space-y-6">
@@ -259,7 +236,7 @@
                     </div>
                 </section>
             </div>
-        {:else if status === "selected"}
+        {:else if status === "selected" || status === "processing"}
             <div class="flex flex-col h-full w-full overflow-hidden">
                 <div
                     class="flex-grow overflow-y-auto min-h-0 space-y-6 scrollbar-hide"
@@ -288,15 +265,13 @@
                                 </button>
                             </div>
                         </div>
-                        <p class="text-sm text-gray-800 leading-relaxed">
-                            {t.common.youHaveSelected}
-                            <b
-                                >{heicQueue.length}
-                                {heicQueue.length === 1
-                                    ? t.common.fileSelected
-                                    : t.common.filesSelected}</b
-                            >
-                            {t.common.totaling} <b>{totalSelectedSize}</b>.
+                        <div class="flex items-center gap-2 text-[14px] text-slate-600">
+                            <span class="font-bold text-slate-800">
+                                {heicQueue.length} {heicQueue.length === 1 ? t.common.unitFile : t.common.unitFiles}
+                            </span>
+                            <span class="text-slate-300">|</span>
+                            <span>{totalSelectedSize}</span>
+                            <span class="mx-1 text-slate-300">|</span>
                             <!-- svelte-ignore a11y_invalid_attribute -->
                             <a
                                 href="#"
@@ -304,10 +279,11 @@
                                     e.preventDefault();
                                     showFilePanel = true;
                                 }}
-                                class="text-[#10b981] hover:underline font-medium"
-                                >{t.common.viewDetail}</a
+                                class="text-[#10b981] hover:underline font-medium text-[13px]"
                             >
-                        </p>
+                                {t.common.viewDetail}
+                            </a>
+                        </div>
                     </div>
 
                     <section id="conversionOptions" class="space-y-4">
@@ -378,15 +354,9 @@
                     </button>
                 </div>
             </div>
-        {:else if status === "processing"}
+
+            {#if status === "processing"}
             <div class="space-y-6 h-full">
-                <!-- <div class="space-y-2">
-                    <div
-                        class="mono text-[12px] text-gray-500 uppercase tracking-widest font-bold"
-                    >
-                        {t.common.processing}
-                    </div>
-                </div> -->
                 <ProcessingState
                     progress={overallProgress}
                     currentIndex={heicQueue.findIndex(
@@ -397,6 +367,7 @@
                    {currentFileName}
                 />
             </div>
+            {/if}
         {:else if status === "success"}
             <SuccessState
                 {processingTime}

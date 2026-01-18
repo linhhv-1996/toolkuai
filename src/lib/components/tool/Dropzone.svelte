@@ -18,7 +18,7 @@
 </script>
 
 <label
-    class="border-2 border-dashed border-gray-200 rounded-sm p-10 text-center cursor-pointer hover:border-[#10b981] transition-all block {isDragging
+    class="border-2 border-dashed border-gray-200 rounded-sm px-10 py-8 text-center cursor-pointer hover:border-[#10b981] transition-all block {isDragging
         ? 'border-[#10b981] bg-green-50'
         : ''} {disabled ? 'opacity-50 pointer-events-none' : ''}"
     ondragover={(e) => {

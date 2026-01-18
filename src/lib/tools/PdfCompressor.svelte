@@ -13,6 +13,7 @@
     import { Plus, Trash2 } from "lucide-svelte";
     import { onMount } from "svelte";
     import * as pdfjs from "pdfjs-dist";
+    import { downloadSingleFile, formatBytes } from "$lib/utils";
 
     onMount(() => {
         pdfjs.GlobalWorkerOptions.workerSrc = '/pdf.js/pdf.worker.min.mjs'; // Theo docs: Copy file vào public/pdf.js/pdf.worker.min.mjs
@@ -168,21 +169,6 @@
         throw new Error('Compression failed after retries');
     }
 
-
-    function downloadSinglePdf(item: any) {
-        if (!item.resultBlob) return;
-        
-        const url = URL.createObjectURL(item.resultBlob);
-        const a = document.createElement("a");
-        a.href = url;
-        a.download = item.resultName || `compressed_${item.file.name}`;
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        URL.revokeObjectURL(url);
-    }
-
-
     function reset() {
         pdfQueue = [];
         zipUrl = null;
@@ -208,13 +194,6 @@
         `${t.common.saved} <span class="font-bold">${savedPercentage}%</span> (${totalSavedMB})`
     );
 
-    function formatBytes(bytes: number) {
-        if (bytes === 0) return "0 B";
-        const k = 1024;
-        const i = Math.floor(Math.log(bytes) / Math.log(k));
-        return parseFloat((bytes / Math.pow(k, i)).toFixed(1)) + " " + ["B", "KB", "MB", "GB"][i];
-    }
-
     function getSavedPercentage(original: number, result: number) {
         if (original === 0) return "0";
         return ((original - result) / original * 100).toFixed(1);
@@ -231,7 +210,7 @@
 
 <div class="w-full">
     <div class="tool-box relative bg-white rounded-sm border border-gray-200 p-4 space-y-6" 
-         style="height: 330px; overflow: hidden; box-sizing: border-box; width: 100%;">
+         style="height: 328px; overflow: hidden; box-sizing: border-box; width: 100%;">
         {#if status === "idle"}
             <div class="space-y-6">
                 <Dropzone onFilesSelected={handleFiles} accept="application/pdf" {t} />
@@ -250,7 +229,7 @@
                     </div>
                 </section>
             </div>
-        {:else if status === "selected"}
+        {:else if status === "selected" || status === "processing"}
             <div class="flex flex-col h-full w-full overflow-hidden">
                 
                 <div class="flex-grow overflow-y-auto min-h-0 space-y-6 scrollbar-hide">
@@ -268,11 +247,27 @@
                                 </button>
                             </div>
                         </div>
-                        <p class="text-sm text-gray-800 leading-relaxed">
-                            {t.common.youHaveSelected} <b>{pdfQueue.length} {pdfQueue.length === 1 ? t.common.fileSelected : t.common.filesSelected}</b> {t.common.totaling} <b>{totalSelectedSize}</b>. 
+                        
+                        <div class="flex items-center gap-2 text-[14px] text-slate-600">
+                            <span class="font-bold text-slate-800">
+                                {pdfQueue.length} {pdfQueue.length === 1 ? t.common.unitFile : t.common.unitFiles}
+                            </span>
+                            <span class="text-slate-300">|</span>
+                            <span>{totalSelectedSize}</span>
+                            <span class="mx-1 text-slate-300">|</span>
                             <!-- svelte-ignore a11y_invalid_attribute -->
-                            <a href="#" onclick={(e) => { e.preventDefault(); showFilePanel = true; }} class="text-[#10b981] hover:underline font-medium">{t.common.viewDetail}</a>
-                        </p>
+                            <a
+                                href="#"
+                                onclick={(e) => {
+                                    e.preventDefault();
+                                    showFilePanel = true;
+                                }}
+                                class="text-[#10b981] hover:underline font-medium text-[13px]"
+                            >
+                                {t.common.viewDetail}
+                            </a>
+                        </div>
+
                     </div>
 
                     <section id="compressionOptions" class="space-y-4">
@@ -305,7 +300,8 @@
                     </button>
                 </div>
             </div>
-        {:else if status === "processing"}
+
+            {#if status === "processing"}
             <div class="space-y-6 h-full">
                 <ProcessingState 
                     progress={overallProgress} 
@@ -315,6 +311,7 @@
                     {currentFileName}
                 />
             </div>
+            {/if}
         {:else if status === "success"}
             <SuccessState 
                 {processingTime} 
@@ -335,7 +332,7 @@
                 onRemove={removeFile} 
                 {formatBytes} 
                 {getSavedPercentage} 
-                onDownload={downloadSinglePdf} 
+                onDownload={downloadSingleFile} 
                 isCompressor={true}
             />
         {/if}

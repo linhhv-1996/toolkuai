@@ -48,7 +48,7 @@
             {#if showExtraInfo}
                 <div class="pt-4 w-full border-t border-dashed border-gray-100 flex flex-col items-center">
                     <ShieldCheck class="w-4 h-4 text-gray-400 mb-1" />
-                    <p class="text-[12px] text-gray-400 text-center italic mono uppercase max-w-[180px] leading-tight">
+                    <p class="text-[12px] text-gray-400 text-center italic mono uppercase max-w-[250px] leading-tight">
                         {t.common.processLocaly}
                     </p>
                 </div>

@@ -20,109 +20,77 @@
     $effect(() => { animatedProgress.set(progress); });
 </script>
 
-<div class="flex flex-col h-full w-full overflow-hidden animate-in fade-in duration-700">
-    <div class="flex-grow relative min-h-0 w-full overflow-hidden rounded-sm bg-slate-50 border border-gray-100 shadow-inner">
+<div class="absolute inset-0 z-50 bg-white/65 backdrop-blur-[1px] flex flex-col items-center justify-center animate-in fade-in zoom-in duration-300" style="margin-top: 0;">
+    
+    <div class="relative w-52 h-52 md:w-60 md:h-60 flex items-center justify-center">
         
-        <div 
-            class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-[#059669] via-[#10b981] to-[#34d399] transition-all duration-1000 ease-linear"
-            style="height: {$animatedProgress}%"
-        >
-            <div class="wave-layer wave-1 opacity-40"></div>
-            <div class="wave-layer wave-2 opacity-50"></div>
-            <div class="wave-layer wave-3 opacity-20"></div>
-
-            <div class="absolute inset-0 overflow-hidden pointer-events-none">
-                <div class="bubble bubble-1"></div>
-                <div class="bubble bubble-2"></div>
-                <div class="bubble bubble-3"></div>
-            </div>
-        </div>
-
-        <div class="absolute inset-0 flex flex-col items-center justify-center z-20 pointer-events-none">
-            <div class="mono text-[10px] md:text-[11px] font-black text-slate-400 uppercase tracking-[0.4em] mb-2 drop-shadow-sm">
-                {currentIndex} / {totalFiles} {t.common.files}
-            </div>
-            <div class="flex items-baseline font-black tracking-tighter">
-                <span class="text-6xl md:text-7xl transition-colors duration-500 text-slate-800">
-                    {$animatedProgress.toFixed(0)}
-                </span>
-                <span class="text-xl md:text-2xl ml-1 opacity-60 text-slate-800">%</span>
-            </div>
+        <div class="absolute inset-0 border-2 border-[#10b981]/20 shadow-2xl drop-shape overflow-hidden bg-white/40">
             
-            <div class="mt-4 flex items-center space-x-2 px-3 py-1.5 bg-white/90 backdrop-blur-sm border border-emerald-100 rounded-full shadow-sm">
-                <div class="w-1.5 h-1.5 bg-[#10b981] rounded-full animate-pulse"></div>
-                <span class="mono text-[10px] text-emerald-600 font-bold uppercase tracking-widest">{t.common.processing}</span>
+            <div 
+                class="absolute inset-x-0 bottom-0 bg-[#10b981] transition-all duration-1000 ease-linear"
+                style="height: {$animatedProgress}%"
+            >
+                <div class="wave wave-back"></div>
+                <div class="wave wave-front"></div>
             </div>
-        </div>
 
-        <div 
-            class="absolute inset-x-0 h-[2px] bg-white shadow-[0_0_15px_#fff] opacity-60 transition-all duration-1000 ease-linear z-10"
-            style="bottom: {$animatedProgress}%"
-        ></div>
-    </div>
-
-    <div class="flex-shrink-0 w-full pt-4 pb-1">
-        <div class="border border-gray-100 bg-gray-50/50 rounded-sm p-3 text-center space-y-1">
-            <div class="mono text-[10px] font-bold text-[#10b981] uppercase tracking-[0.2em]">
-                {t.common.processing}
-            </div>
-            <div class="mono text-[12px] text-slate-600 truncate w-full px-4 italic">
-                {currentFileName || 'Initializing...'}
+            <div class="absolute inset-0 flex flex-col items-center justify-center z-20 pointer-events-none">
+                <div class="text-[12px] font-bold text-slate-500 uppercase tracking-widest mb-1">
+                    {currentIndex} / {totalFiles}
+                </div>
+                <div class="flex items-baseline font-black tracking-tighter text-slate-800">
+                    <span class="text-6xl md:text-7xl">
+                        {$animatedProgress.toFixed(0)}
+                    </span>
+                    <span class="text-xl ml-1 opacity-40">%</span>
+                </div>
             </div>
         </div>
     </div>
 </div>
 
 <style>
-    .mono { font-family: 'JetBrains Mono', 'Fira Code', monospace; }
+    /* Hình dáng giọt nước organic */
+    .drop-shape {
+        border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+        animation: morph 6s ease-in-out infinite;
+    }
 
-    /* Cấu trúc sóng sánh đa lớp */
-    .wave-layer {
+    /* Lớp sóng chung */
+    .wave {
         position: absolute;
-        width: 300%;
-        height: 300%;
-        background: white;
-        left: -100%;
+        top: -28px; /* Khớp với chiều cao wave trong SVG */
+        left: 0;
+        width: 200%;
+        height: 30px;
+        background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 1000 100" xmlns="http://www.w3.org/2000/svg"><path d="M0,50 C150,150 350,-50 500,50 C650,150 850,-50 1000,50 V100 H0 Z" fill="%2310b981"/></svg>');
+        background-size: 50% 100%;
+        transform: translate3d(0, 0, 0); /* Ép GPU xử lý cho mượt */
     }
 
-    .wave-1 {
-        border-radius: 42%;
-        top: -288%;
-        animation: rotate-wave 8s infinite linear;
+    /* Sóng trước: Chạy nhanh hơn */
+    .wave-front {
+        animation: wave-move 3s linear infinite;
+        z-index: 20;
+        opacity: 1;
     }
 
-    .wave-2 {
-        border-radius: 40%;
-        top: -290%;
-        animation: rotate-wave 13s infinite linear;
+    /* Sóng sau: Chạy chậm, ngược chiều và nhạt hơn tạo độ sâu */
+    .wave-back {
+        animation: wave-move 6s linear infinite reverse;
+        z-index: 10;
+        opacity: 0.4;
+        filter: brightness(0.9);
+        top: -32px; /* Lệch lên một chút so với sóng trước */
     }
 
-    .wave-3 {
-        border-radius: 38%;
-        top: -292%;
-        animation: rotate-wave 18s infinite linear;
+    @keyframes wave-move {
+        0% { transform: translateX(0); }
+        100% { transform: translateX(-50%); }
     }
 
-    /* Hiệu ứng bọt khí bay lên */
-    .bubble {
-        position: absolute;
-        bottom: -20px;
-        background: rgba(255, 255, 255, 0.3);
-        border-radius: 50%;
-        animation: bubble-up 4s infinite ease-in;
-    }
-    .bubble-1 { width: 10px; height: 10px; left: 20%; animation-duration: 3s; }
-    .bubble-2 { width: 6px; height: 6px; left: 50%; animation-duration: 5s; animation-delay: 1s; }
-    .bubble-3 { width: 8px; height: 8px; left: 80%; animation-duration: 4s; animation-delay: 2s; }
-
-    @keyframes rotate-wave {
-        from { transform: rotate(0deg); }
-        to { transform: rotate(360deg); }
-    }
-
-    @keyframes bubble-up {
-        0% { transform: translateY(0); opacity: 0; }
-        50% { opacity: 1; }
-        100% { transform: translateY(-100px); opacity: 0; }
+    @keyframes morph {
+        0%, 100% { border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%; transform: scale(1); }
+        50% { border-radius: 45% 55% 45% 55% / 55% 45% 55% 45%; transform: scale(1.03); }
     }
 </style>
