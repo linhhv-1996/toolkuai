@@ -17,6 +17,7 @@ export const ui: Record<SupportedLang, any> = {
             noPosts: 'No posts found.',
             loading: 'Loading posts...',
             readArticle: 'Read Article',
+            postNotFound: "Error loading posts.",
         },
         sidebar: {
             related: "More Tools",
@@ -41,7 +42,8 @@ export const ui: Record<SupportedLang, any> = {
             viewAll: '查看所有文章 →',
             noPosts: '目前尚無文章。',
             loading: '載入中...',
-            readArticle: 'Read Article',
+            readArticle: "閱讀文章",
+            postNotFound: "無法載入貼文。"
         },
         sidebar: {
             related: "更多工具",

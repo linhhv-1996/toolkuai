@@ -17,7 +17,7 @@
     <div class="divide-y divide-gray-100 border-t border-b border-gray-100 bg-white">
         {#await postsPromise}
             <div class="py-6 text-center text-[11px] text-gray-400 animate-pulse uppercase">
-                {t.loading || 'Loading...'}
+                {t.loading}
             </div>
         {:then posts}
             {#each posts as post}
@@ -38,7 +38,7 @@
                 <div class="py-4 px-2 text-[11px] text-gray-400 italic">{t.noPosts || 'No posts found.'}</div>
             {/each}
         {:catch error}
-            <div class="py-4 px-2 text-[11px] text-red-400 italic">Error loading posts.</div>
+            <div class="py-4 px-2 text-[11px] text-red-400 italic">{t.postNotFound}</div>
         {/await}
     </div>
 
