@@ -2,7 +2,7 @@ import type { SupportedLang } from "./siteConfig";
 
 export const ui: Record<SupportedLang, any> = {
     en: {
-        nav: { blog: "Blog", searchPlaceholder: "Search tools..." },
+        nav: { blog: "Blog", searchPlaceholder: "Search tools...", tag: "Privacy-first, lightning-fast tools in your browser." },
         hero: {
             h1: "Lightning Fast Local Processing",
             h2: "Your data stays on your device. Fast, private tools for everyday tasks.",
@@ -25,7 +25,7 @@ export const ui: Record<SupportedLang, any> = {
         footer: { builtFor: "Built for Privacy", privacy: "Privacy Policy", term: "Terms", contact: "Contact" }
     },
     'zh-TW': {
-        nav: { blog: "部落格", searchPlaceholder: "搜尋工具..." },
+        nav: { blog: "部落格", searchPlaceholder: "搜尋工具...", tag: "以隱私為先、閃電般快速的瀏覽器工具" },
         hero: {
             // H1 dùng từ "在地處理" (Local processing) cực kỳ phổ biến ở Đài cho các tool offline/browser-based
             h1: "極速在地處理，隱私安全無虞",

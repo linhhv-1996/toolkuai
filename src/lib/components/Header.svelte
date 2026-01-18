@@ -42,12 +42,12 @@
       <span class="text-lg md:text-2xl font-black tracking-tight text-slate-900 transition-colors">
         Toolkuai
       </span>
-      <span class="text-[10px] md:text-xs text-gray-500 -mt-1 leading-tight whitespace-nowrap md:whitespace-normal">
-        Fast, Private Tools in Your Browser
-      </span>  <!-- Tagline luôn hiển thị, responsive size & wrap -->
+      <span class="text-[12px] text-gray-600 mt-1 leading-tight whitespace-nowrap md:whitespace-normal">
+        {t.nav.tag}
+      </span> 
     </div>
   </a>
-  <div class="flex items-center gap-3 md:gap-6">
+  <div class="flex items-center gap-6 ml-1">
     <div class="relative flex items-center">
       <!-- svelte-ignore event_directive_deprecated -->
       <select
