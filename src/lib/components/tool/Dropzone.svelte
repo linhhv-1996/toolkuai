@@ -37,7 +37,7 @@
 >
     <UploadCloud class="w-8 h-8 text-gray-500 mx-auto mb-2" />
     <div class="font-bold text-[15px] mb-1 text-gray-800">{t.common.dropTitle}</div>
-    <div class="mono text-[11px] text-gray-400 uppercase tracking-tight">{t.common.dropDesc}</div>
+    <div class="mono text-[12px] text-gray-400 uppercase tracking-tight">{t.common.dropDesc}</div>
     <input
         type="file"
         {multiple}

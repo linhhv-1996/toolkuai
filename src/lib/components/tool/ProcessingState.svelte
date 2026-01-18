@@ -66,7 +66,7 @@
             <div class="mono text-[10px] font-bold text-[#10b981] uppercase tracking-[0.2em]">
                 {t.common.processing}
             </div>
-            <div class="mono text-[11px] text-slate-600 truncate w-full px-4 italic">
+            <div class="mono text-[12px] text-slate-600 truncate w-full px-4 italic">
                 {currentFileName || 'Initializing...'}
             </div>
         </div>

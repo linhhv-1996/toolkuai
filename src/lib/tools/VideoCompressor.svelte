@@ -225,28 +225,28 @@
                 <Dropzone onFilesSelected={handleFiles} accept="video/*" {t} />
                 <section id="compressionOptions" class="space-y-4">
                     <div
-                        class="mono text-[11px] text-gray-500 mb-2 uppercase tracking-widest font-bold"
+                        class="mono text-[12px] text-slate-500 mb-1.5 uppercase tracking-wider font-semibold"
                     >
                         {t.common.options}
                     </div>
                     <div class="flex flex-col space-y-2">
                         <!-- svelte-ignore a11y_label_has_associated_control -->
                         <label
-                            class="mono text-[11px] text-gray-500 uppercase font-bold"
+                            class="mono text-[12px] text-gray-500 uppercase tracking-wider font-semibold"
                             >{t.videoCompress.quality}</label
                         >
                         <select
                             bind:value={quality}
-                            class="mono text-[13px] px-4 py-2 border border-gray-300 focus:outline-none focus:border-gray-500 rounded-sm bg-white"
+                            class="mono text-[14px] px-4 py-2 border border-gray-300 focus:outline-none focus:border-gray-500 rounded-sm bg-white"
                             id="qualityLevel"
                         >
-                            <option class="mono text-[13px]" value="high"
+                            <option class="mono text-[14px]" value="high"
                                 >{t.videoCompress.qualityLevels.high}</option
                             >
-                            <option class="mono text-[13px]" value="medium"
+                            <option class="mono text-[14px]" value="medium"
                                 >{t.videoCompress.qualityLevels.medium}</option
                             >
-                            <option class="mono text-[13px]" value="low"
+                            <option class="mono text-[14px]" value="low"
                                 >{t.videoCompress.qualityLevels.low}</option
                             >
                         </select>
@@ -261,21 +261,21 @@
                     <div class="space-y-2">
                         <div class="flex flex-col gap-2 mb-4">
                             <div
-                                class="mono text-[11px] text-gray-500 uppercase tracking-widest font-bold"
+                                class="mono text-[12px] text-gray-500 uppercase tracking-widest font-bold"
                             >
                                 {t.common.selectedFiles}
                             </div>
                             <div class="flex space-x-2">
                                 <button
                                     onclick={addMoreFiles}
-                                    class="flex items-center border border-[#10b981] text-[#10b981] mono text-[11px] px-3 py-1 rounded-sm hover:bg-green-50 transition font-bold uppercase tracking-wider"
+                                    class="flex items-center border border-[#10b981] text-[#10b981] mono text-[12px] px-3 py-1 rounded-sm hover:bg-green-50 transition font-bold uppercase tracking-wider"
                                 >
                                     <Plus class="w-4 h-4 mr-1" />{t.common
                                         .addMore}
                                 </button>
                                 <button
                                     onclick={clearFiles}
-                                    class="flex items-center border border-gray-300 text-gray-600 mono text-[11px] px-3 py-1 rounded-sm hover:bg-gray-50 transition font-bold uppercase tracking-wider"
+                                    class="flex items-center border border-gray-300 text-gray-600 mono text-[12px] px-3 py-1 rounded-sm hover:bg-gray-50 transition font-bold uppercase tracking-wider"
                                 >
                                     <Trash2 class="w-4 h-4 mr-1" />{t.common
                                         .clear}
@@ -305,29 +305,29 @@
 
                     <section id="compressionOptions" class="space-y-3">
                         <div
-                            class="mono text-[11px] text-gray-500 mb-2 uppercase tracking-widest font-bold"
+                            class="mono text-[12px] text-slate-500 mb-1.5 uppercase tracking-wider font-semibold"
                         >
                             {t.common.options}
                         </div>
                         <div class="flex flex-col space-y-2">
                             <label
-                                class="mono text-[11px] text-gray-500 uppercase font-bold"
+                                class="mono text-[12px] text-gray-500 uppercase tracking-wider font-semibold"
                                 >{t.videoCompress.quality}</label
                             >
                             <select
                                 bind:value={quality}
-                                class="mono text-[13px] px-4 py-2 border border-gray-300 focus:outline-none focus:border-gray-500 rounded-sm bg-white"
+                                class="mono text-[14px] px-4 py-2 border border-gray-300 focus:outline-none focus:border-gray-500 rounded-sm bg-white"
                                 id="qualityLevel"
                             >
-                                <option class="mono text-[13px]" value="high"
+                                <option class="mono text-[14px]" value="high"
                                     >{t.videoCompress.qualityLevels
                                         .high}</option
                                 >
-                                <option class="mono text-[13px]" value="medium"
+                                <option class="mono text-[14px]" value="medium"
                                     >{t.videoCompress.qualityLevels
                                         .medium}</option
                                 >
-                                <option class="mono text-[13px]" value="low"
+                                <option class="mono text-[14px]" value="low"
                                     >{t.videoCompress.qualityLevels.low}</option
                                 >
                             </select>

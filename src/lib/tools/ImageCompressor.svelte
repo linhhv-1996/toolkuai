@@ -284,29 +284,29 @@
                 <Dropzone onFilesSelected={handleFiles} accept=".jpg,.jpeg,.png,.webp,.gif,.bmp,.tiff" {t} />
                 
                 <section id="compressionOptions" class="space-y-4">
-                    <div class="mono text-[11px] text-gray-500 mb-2 uppercase tracking-widest font-bold">
+                    <div class="mono text-[12px] text-slate-500 mb-1.5 uppercase tracking-wider font-semibold">
                         {t.common.options}
                     </div>
                     <div class="flex flex-col space-y-2">
                         <!-- svelte-ignore a11y_label_has_associated_control -->
-                        <label class="mono text-[11px] text-gray-500 uppercase font-bold">{t.common.format}</label>
-                        <select bind:value={outputFormat} class="mono text-[13px] px-4 py-2 border border-gray-300 focus:outline-none focus:border-gray-500 rounded-sm bg-white" id="outputFormat">
-                            <option class="mono text-[13px]" value="original">{t.imageCompressor.keepOriginal}</option>
-                            <option class="mono text-[13px]" value="jpg">JPG</option>
-                            <option class="mono text-[13px]" value="png">PNG</option>
-                            <option class="mono text-[13px]" value="webp">WEBP</option>
+                        <label class="mono text-[12px] text-gray-500 uppercase tracking-wider font-semibold">{t.common.format}</label>
+                        <select bind:value={outputFormat} class="mono text-[14px] px-4 py-2 border border-gray-300 focus:outline-none focus:border-gray-500 rounded-sm bg-white" id="outputFormat">
+                            <option class="mono text-[14px]" value="original">{t.imageCompressor.keepOriginal}</option>
+                            <option class="mono text-[14px]" value="jpg">JPG</option>
+                            <option class="mono text-[14px]" value="png">PNG</option>
+                            <option class="mono text-[14px]" value="webp">WEBP</option>
                         </select>
                         </div>
                     <div class="flex flex-col space-y-2">
                         <!-- svelte-ignore a11y_label_has_associated_control -->
-                        <label class="mono text-[11px] text-gray-500 uppercase font-bold">{t.common.quality}</label>
+                        <label class="mono text-[12px] text-gray-500 uppercase tracking-wider font-semibold">{t.common.quality}</label>
                         <input type="range" bind:value={quality} min="10" max="100" step="10" class="w-full accent-red-600" />
                         <span class="text-sm text-gray-600">{quality}%</span>
                     </div>
                     <div class="flex flex-col space-y-2">
                         <!-- svelte-ignore a11y_label_has_associated_control -->
-                        <label class="mono text-[11px] text-gray-500 uppercase font-bold">{t.imageCompressor.maxWidthOrHeight}</label>
-                        <input type="number" bind:value={maxWidthOrHeight} min="0" max="5000" step="100" class="mono text-[13px] px-4 py-2 border border-gray-300 focus:outline-none focus:border-gray-500 rounded-sm bg-white" />
+                        <label class="mono text-[12px] text-gray-500 uppercase tracking-wider font-semibold">{t.imageCompressor.maxWidthOrHeight}</label>
+                        <input type="number" bind:value={maxWidthOrHeight} min="0" max="5000" step="100" class="mono text-[14px] px-4 py-2 border border-gray-300 focus:outline-none focus:border-gray-500 rounded-sm bg-white" />
                     </div>
                 </section>
             </div>
@@ -315,14 +315,14 @@
     <div class="flex-grow overflow-y-auto min-h-0 space-y-6 scrollbar-hide">
         <div class="space-y-2">
             <div class="flex flex-col gap-2 mb-4">
-                <div class="mono text-[11px] text-gray-500 uppercase tracking-widest font-bold">
+                <div class="mono text-[12px] text-gray-500 uppercase tracking-widest font-bold">
                     {t.common.selectedFiles}
                 </div>
                 <div class="flex space-x-2">
-                    <button onclick={addMoreFiles} class="flex items-center border border-[#10b981] text-[#10b981] mono text-[11px] px-3 py-1 rounded-sm hover:bg-green-50 transition font-bold uppercase tracking-wider">
+                    <button onclick={addMoreFiles} class="flex items-center border border-[#10b981] text-[#10b981] mono text-[12px] px-3 py-1 rounded-sm hover:bg-green-50 transition font-bold uppercase tracking-wider">
                         <Plus class="w-4 h-4 mr-1" />{t.common.addMore}
                     </button>
-                    <button onclick={clearFiles} class="flex items-center border border-gray-300 text-gray-600 mono text-[11px] px-3 py-1 rounded-sm hover:bg-gray-50 transition font-bold uppercase tracking-wider">
+                    <button onclick={clearFiles} class="flex items-center border border-gray-300 text-gray-600 mono text-[12px] px-3 py-1 rounded-sm hover:bg-gray-50 transition font-bold uppercase tracking-wider">
                         <Trash2 class="w-4 h-4 mr-1" />{t.common.clear}
                     </button>
                 </div>
@@ -334,29 +334,29 @@
         </div>
 
         <section id="compressionOptions" class="space-y-3 pb-2">
-            <div class="mono text-[11px] text-gray-500 mb-2 uppercase tracking-widest font-bold">
+            <div class="mono text-[12px] text-slate-500 mb-1.5 uppercase tracking-wider font-semibold">
                 {t.common.options}
             </div>
             
             <div class="flex flex-col space-y-2">
-                <label class="mono text-[11px] text-gray-500 uppercase font-bold">{t.common.format}</label>
-                <select bind:value={outputFormat} class="mono text-[13px] px-4 py-2 border border-gray-300 focus:outline-none focus:border-gray-500 rounded-sm bg-white" id="outputFormat">
-                    <option class="mono text-[13px]" value="original">{t.imageCompressor.keepOriginal}</option>
-                    <option class="mono text-[13px]" value="jpg">JPG</option>
-                    <option class="mono text-[13px]" value="png">PNG</option>
-                    <option class="mono text-[13px]" value="webp">WEBP</option>
+                <label class="mono text-[12px] text-gray-500 uppercase tracking-wider font-semibold">{t.common.format}</label>
+                <select bind:value={outputFormat} class="mono text-[14px] px-4 py-2 border border-gray-300 focus:outline-none focus:border-gray-500 rounded-sm bg-white" id="outputFormat">
+                    <option class="mono text-[14px]" value="original">{t.imageCompressor.keepOriginal}</option>
+                    <option class="mono text-[14px]" value="jpg">JPG</option>
+                    <option class="mono text-[14px]" value="png">PNG</option>
+                    <option class="mono text-[14px]" value="webp">WEBP</option>
                 </select>
             </div>
 
             <div class="flex flex-col space-y-2">
-                <label class="mono text-[11px] text-gray-500 uppercase font-bold">{t.common.quality}</label>
+                <label class="mono text-[12px] text-gray-500 uppercase tracking-wider font-semibold">{t.common.quality}</label>
                 <input type="range" bind:value={quality} min="10" max="100" step="10" class="w-full accent-red-600" />
                 <span class="text-sm text-gray-600">{quality}%</span>
             </div>
 
             <div class="flex flex-col space-y-2">
-                <label class="mono text-[11px] text-gray-500 uppercase font-bold">{t.imageCompressor.maxWidthOrHeight}</label>
-                <input type="number" bind:value={maxWidthOrHeight} min="0" max="5000" step="100" class="mono text-[13px] px-4 py-2 border border-gray-300 focus:outline-none focus:border-gray-500 rounded-sm bg-white" />
+                <label class="mono text-[12px] text-gray-500 uppercase tracking-wider font-semibold">{t.imageCompressor.maxWidthOrHeight}</label>
+                <input type="number" bind:value={maxWidthOrHeight} min="0" max="5000" step="100" class="mono text-[14px] px-4 py-2 border border-gray-300 focus:outline-none focus:border-gray-500 rounded-sm bg-white" />
             </div>
         </section>
     </div>
@@ -378,7 +378,7 @@
         {:else if status === "processing"}
             <div class="space-y-6 h-full">
                 <!-- <div class="space-y-2">
-                    <div class="mono text-[11px] text-gray-500 uppercase tracking-widest font-bold">
+                    <div class="mono text-[12px] text-gray-500 uppercase tracking-widest font-bold">
                         {t.common.processing}
                     </div>
                 </div> -->

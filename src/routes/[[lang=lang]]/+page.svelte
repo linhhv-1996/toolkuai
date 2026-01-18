@@ -113,12 +113,12 @@
                   </div>
                   <div>
                     <div
-                      class="text-[15px] font-bold text-slate-900 group-hover:text-[#10b981] transition-colors mb-0.5"
+                      class="blog-content text-[15px] font-bold text-slate-900 group-hover:text-[#10b981] transition-colors mb-0.5"
                     >
                       {tool.i18n[lang].title}
                     </div>
                     <div
-                      class="text-[13px] text-slate-600 leading-relaxed max-w-[450px]"
+                      class="blog-content text-[13px] text-slate-600 leading-relaxed max-w-[450px]"
                     >
                       {tool.i18n[lang].description}
                     </div>

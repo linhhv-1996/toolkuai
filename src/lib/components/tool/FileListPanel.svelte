@@ -27,7 +27,7 @@
 
 <div class="absolute inset-0 bg-white z-20 flex flex-col h-full border border-gray-300 rounded-sm shadow-lg overflow-hidden" style="margin-top: 0;">
     <div class="flex justify-between items-center px-4 pt-6 mb-4">
-        <h3 class="mono text-[11px] text-gray-500 uppercase tracking-widest font-bold">
+        <h3 class="mono text-[12px] text-gray-500 uppercase tracking-widest font-bold">
             {status === "success" ? t.common.processedFiles : t.common.selectedFiles}
         </h3>
         <button onclick={onClose} class="text-gray-500 hover:text-gray-700 transition-colors">

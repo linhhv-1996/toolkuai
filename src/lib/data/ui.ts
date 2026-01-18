@@ -18,6 +18,10 @@ export const ui: Record<SupportedLang, any> = {
             loading: 'Loading posts...',
             readArticle: 'Read Article',
         },
+        sidebar: {
+            related: "More Tools",
+            viewAll: "All Tools",
+        },
         footer: { builtFor: "Built for Privacy", privacy: "Privacy Policy", term: "Terms", contact: "Contact" }
     },
     'zh-TW': {
@@ -38,6 +42,10 @@ export const ui: Record<SupportedLang, any> = {
             noPosts: '目前尚無文章。',
             loading: '載入中...',
             readArticle: 'Read Article',
+        },
+        sidebar: {
+            related: "更多工具",
+            viewAll: "所有工具",
         },
         footer: {
             builtFor: "專為隱私打造",

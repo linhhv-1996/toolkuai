@@ -15,22 +15,25 @@
   );
 </script>
 
-<footer class="w-full py-4 border-t border-gray-100 bg-gray-50/30">
+<footer class="w-full py-6 border-t border-gray-100 bg-gray-50/30">
   <div class="max-w-[972px] mx-auto px-6">
     <div class="flex flex-col md:flex-row justify-between items-center gap-4">
-      <div class="text-[11px] text-gray-400 uppercase tracking-wider font-medium">
+      
+      <div class="text-[12px] text-slate-400 uppercase tracking-wider font-medium">
         ToolKuai © 2026 — {t.builtFor}
       </div>
 
-      <div class="flex space-x-6 text-[11px] font-bold uppercase tracking-widest">
-        <a href="{langPath}/p/privacy" class="text-gray-500 hover:text-[#10b981] transition-colors">
+      <div class="flex space-x-6 text-[12px] font-semibold uppercase tracking-wider">
+        <a href="{langPath}/p/privacy" class="text-slate-500 hover:text-[#10b981] transition-colors">
           {t.privacy}
         </a>
 
-        <a href="{langPath}/p/terms" class="text-gray-500 hover:text-[#10b981] transition-colors">
+        <a href="{langPath}/p/terms" class="text-slate-500 hover:text-[#10b981] transition-colors">
           {t.term}
         </a>
       </div>
+      
     </div>
   </div>
 </footer>
+

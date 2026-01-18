@@ -64,7 +64,7 @@
     <nav class="w-full mb-6">
         <a
             href={homePath}
-            class="inline-flex items-center space-x-1 text-gray-500 hover:text-[#10b981] transition-colors mono text-[11px] uppercase tracking-wider group"
+            class="inline-flex items-center space-x-1 text-gray-500 hover:text-[#10b981] transition-colors mono text-[12px] uppercase tracking-wider group"
         >
             <ChevronLeft
                 class="w-4 h-4 transition-transform group-hover:-translate-x-1"

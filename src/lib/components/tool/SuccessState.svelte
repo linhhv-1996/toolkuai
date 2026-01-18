@@ -33,22 +33,22 @@
         <div class="w-full my-auto space-y-4">
             <div class="flex items-center space-x-2 justify-center w-full">
                 <Clock class="w-4 h-4 text-slate-600 flex-shrink-0" />
-                <span class="mono text-[13px] text-slate-600 font-medium uppercase tracking-tight">{processingTime}</span>
+                <span class="mono text-[14px] text-slate-600 font-medium uppercase tracking-tight">{processingTime}</span>
             </div>
             
             <div class="flex items-center space-x-2 justify-center w-full">
                 <Percent class="w-4 h-4 text-slate-600 flex-shrink-0" />
-                <div class="mono text-[13px] text-slate-600 font-medium uppercase tracking-tight">{@html customInfo}</div>
+                <div class="mono text-[14px] text-slate-600 font-medium uppercase tracking-tight">{@html customInfo}</div>
             </div>
             
-            <button onclick={onViewFiles} class="text-[#10b981] hover:underline mono text-[11px] uppercase font-bold w-full text-center">
+            <button onclick={onViewFiles} class="text-[#10b981] hover:underline mono text-[13px] uppercase font-bold w-full text-center">
                 {t.common.viewFiles}
             </button>
 
             {#if showExtraInfo}
                 <div class="pt-4 w-full border-t border-dashed border-gray-100 flex flex-col items-center">
                     <ShieldCheck class="w-4 h-4 text-gray-400 mb-1" />
-                    <p class="text-[10px] text-gray-400 text-center italic mono uppercase max-w-[180px] leading-tight">
+                    <p class="text-[12px] text-gray-400 text-center italic mono uppercase max-w-[180px] leading-tight">
                         {t.common.processLocaly}
                     </p>
                 </div>

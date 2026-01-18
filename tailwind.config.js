@@ -11,11 +11,17 @@ export default {
         },
       },
       fontFamily: {
-        // Đặt Plus Jakarta Sans làm mặc định cho cả trang
-        sans: ['"Merriweather"', 'sans-serif'],
-        // Giữ mono cho các con số kỹ thuật nếu cần
-        mono: ['"Merriweather"', 'sans-serif'],
+        // Font chính cho UI, Labels, Buttons (Plus Jakarta Sans)
+        sans: ['"Plus Jakarta Sans"', '"Microsoft JhengHei"', 'sans-serif'],
+        // Font riêng cho nội dung Blog (Merriweather)
+        serif: ['"Merriweather"', 'serif'],
       },
+      // fontFamily: {
+      //   // Đặt Plus Jakarta Sans làm mặc định cho cả trang
+      //   sans: ['"Merriweather"', 'sans-serif'],
+      //   // Giữ mono cho các con số kỹ thuật nếu cần
+      //   mono: ['"Merriweather"', 'sans-serif'],
+      // },
     },
   },
   plugins: [

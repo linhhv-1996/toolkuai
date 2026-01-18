@@ -10,7 +10,8 @@ body {
 }
 
 .mono {
-  font-family: 'Merriweather', sans-serif;
+  @apply font-sans;
+  /* letter-spacing: 0.02em; */
 }
 
 input, select, textarea, button {
@@ -49,14 +50,13 @@ a {
   transition: color 0.15s ease;
 }
 
-
-
 @layer components {
   .blog-content {
-    @apply prose max-w-none;
-    font-family: 'Merriweather', serif;
+    @apply prose max-w-none font-serif;
+    /* font-family: 'Merriweather', serif; */
     font-size: 0.9375rem; /* ~15px - Kích thước hoàn hảo để nhồi thông tin */
     color: theme('colors.slate.700');
+    line-height: 1.6 !important;
   }
 
   /* Khử gạch chân link và làm mượt nét chữ */
@@ -87,10 +87,9 @@ a {
 
   /* Đoạn văn (Paragraph) */
   .blog-content p {
-    @apply font-medium;
+    @apply font-normal;
     margin-top: 0.5rem !important;
     margin-bottom: 0.75rem !important;
-    /* line-height: 1.5 !important; */
   }
 
   /* Danh sách (Lists) */
@@ -101,7 +100,7 @@ a {
   }
 
   .blog-content li {
-    @apply font-medium;
+    @apply font-normal;
     margin-top: 0.2rem !important;
     margin-bottom: 0.2rem !important;
   }

@@ -67,7 +67,7 @@
     </div>
     <a
       href="{langPath}/blog"
-      class="text-gray-500 hover:text-slate-900 transition-colors uppercase text-[9px] md:text-[11px] tracking-widest font-extrabold"
+      class="text-gray-500 hover:text-slate-900 transition-colors uppercase text-[12px] tracking-widest font-extrabold"
     >
       {t.nav.blog}
     </a>
