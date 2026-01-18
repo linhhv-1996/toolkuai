@@ -69,7 +69,7 @@
             </button>
 
             {#if zipUrl}
-                <a href={zipUrl} download="toolkuai_files.zip" class="block w-full bg-[#10b981] text-white mono text-[13px] py-3 rounded-sm hover:bg-green-700 transition flex items-center justify-center space-x-1.5 font-bold uppercase tracking-wider">
+                <a href={zipUrl} download="toolkuai_files.zip" class="w-full bg-[#10b981] text-white mono text-[13px] py-3 rounded-sm hover:bg-green-700 transition flex items-center justify-center space-x-1.5 font-bold uppercase tracking-wider">
                     <FileDown class="w-3.5 h-3.5" />
                     <span>{t.common.downloadAll}</span>
                 </a>
