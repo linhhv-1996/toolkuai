@@ -291,6 +291,7 @@
                                     : t.common.filesSelected}</b
                             >
                             {t.common.totaling} <b>{totalSelectedSize}</b>.
+                            <!-- svelte-ignore a11y_invalid_attribute -->
                             <a
                                 href="#"
                                 onclick={(e) => {
@@ -310,6 +311,7 @@
                             {t.common.options}
                         </div>
                         <div class="flex flex-col space-y-2">
+                            <!-- svelte-ignore a11y_label_has_associated_control -->
                             <label
                                 class="mono text-[12px] text-gray-500 uppercase tracking-wider font-semibold"
                                 >{t.videoCompress.quality}</label

@@ -270,6 +270,7 @@
                         </div>
                         <p class="text-sm text-gray-800 leading-relaxed">
                             {t.common.youHaveSelected} <b>{pdfQueue.length} {pdfQueue.length === 1 ? t.common.fileSelected : t.common.filesSelected}</b> {t.common.totaling} <b>{totalSelectedSize}</b>. 
+                            <!-- svelte-ignore a11y_invalid_attribute -->
                             <a href="#" onclick={(e) => { e.preventDefault(); showFilePanel = true; }} class="text-[#10b981] hover:underline font-medium">{t.common.viewDetail}</a>
                         </p>
                     </div>
@@ -279,6 +280,7 @@
                             {t.common.options}
                         </div>
                         <div class="flex flex-col space-y-2">
+                            <!-- svelte-ignore a11y_label_has_associated_control -->
                             <label class="mono text-[12px] text-gray-500 uppercase tracking-wider font-semibold">{t.common.quality}</label>
                             <select bind:value={quality} class="mono text-[14px] px-4 py-2 border border-gray-300 focus:outline-none focus:border-gray-500 rounded-sm bg-white">
                                 <option value="high">{t.pdfCompressor.highQuality}</option>

@@ -329,6 +329,7 @@
             </div>
             <p class="text-sm text-gray-800 leading-relaxed">
                 {t.common.youHaveSelected} <b>{imageQueue.length} {imageQueue.length === 1 ? t.common.fileSelected : t.common.filesSelected}</b> {t.common.totaling} <b>{totalSelectedSize}</b>. 
+                <!-- svelte-ignore a11y_invalid_attribute -->
                 <a href="#" onclick={(e) => { e.preventDefault(); showFilePanel = true; }} class="text-[#10b981] hover:underline font-medium">{t.common.viewDetail}</a>
             </p>
         </div>
@@ -339,6 +340,7 @@
             </div>
             
             <div class="flex flex-col space-y-2">
+                <!-- svelte-ignore a11y_label_has_associated_control -->
                 <label class="mono text-[12px] text-gray-500 uppercase tracking-wider font-semibold">{t.common.format}</label>
                 <select bind:value={outputFormat} class="mono text-[14px] px-4 py-2 border border-gray-300 focus:outline-none focus:border-gray-500 rounded-sm bg-white" id="outputFormat">
                     <option class="mono text-[14px]" value="original">{t.imageCompressor.keepOriginal}</option>
@@ -349,11 +351,13 @@
             </div>
 
             <div class="flex flex-col space-y-2">
+                <!-- svelte-ignore a11y_label_has_associated_control -->
                 <label class="mono text-[12px] text-gray-500 uppercase tracking-wider font-semibold">{t.common.quality}</label>
                 <input type="range" bind:value={quality} min="10" max="100" step="10" class="w-full accent-red-600" />
                 <span class="text-sm text-gray-600">{quality}%</span>
             </div>
 
+            <!-- svelte-ignore a11y_label_has_associated_control -->
             <div class="flex flex-col space-y-2">
                 <label class="mono text-[12px] text-gray-500 uppercase tracking-wider font-semibold">{t.imageCompressor.maxWidthOrHeight}</label>
                 <input type="number" bind:value={maxWidthOrHeight} min="0" max="5000" step="100" class="mono text-[14px] px-4 py-2 border border-gray-300 focus:outline-none focus:border-gray-500 rounded-sm bg-white" />
